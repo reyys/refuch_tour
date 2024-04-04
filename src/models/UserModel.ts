@@ -2,15 +2,16 @@
 import crypto from 'crypto';
 import { Model, Schema, model } from 'mongoose';
 
-interface IUser {
-    name: string;
+export interface IUser {
+    firstName: string;
+    lastName: string;
     email: string;
+    phone: string;
     password: string;
     role: string;
 }
 
 interface IUserMethods {
-    setPassword: (password: string) => void;
     validatePassword: (password: string) => boolean;
 }
 
@@ -18,15 +19,25 @@ type UserModel = Model<IUser, {}, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
     {
-        name: {
+        firstName: {
             type: String,
-            required: [true, 'User must have a name'],
+            required: [true, 'User must have a first name'],
+            trim: true
+        },
+        lastName: {
+            type: String,
+            required: [true, 'User must have a last name'],
             trim: true
         },
         email: {
             type: String,
             required: [true, 'User must have an email'],
             unique: true,
+            trim: true
+        },
+        phone: {
+            type: String,
+            required: [true, 'User must have a phone number'],
             trim: true
         },
         password: {
