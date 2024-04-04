@@ -63,9 +63,9 @@ export class TourController {
         }
     }
 
-    public static async getTour(req: Request, res: Response) {
+    public static async getTourById(req: Request, res: Response) {
         try {
-            const tour = await Tour.findById(req.params.tourId);
+            const tour = await Tour.findById(req.params.id);
             if (!tour) {
                 return res
                     .status(404)
@@ -83,7 +83,7 @@ export class TourController {
 
     public static async deleteTour(req: Request, res: Response) {
         try {
-            const tour = await Tour.findById(req.params.tourId);
+            const tour = await Tour.findById(req.params.id);
             if (!tour) {
                 return res
                     .status(404)

@@ -6,17 +6,13 @@ import { Router } from 'express';
 const TourRoute = Router();
 
 TourRoute.post(
-    '/addTour',
-    AuthMiddleware.authUser,
+    '/',
+    AuthMiddleware.authAdmin,
     MulterMiddleware.upload.single('image'),
     TourController.addTour
 );
-TourRoute.delete(
-    '/deleteTour/:tourId',
-    AuthMiddleware.authUser,
-    TourController.deleteTour
-);
-TourRoute.get('/getTour/:tourId', TourController.getTour);
-TourRoute.get('/getTours', TourController.getTours);
+TourRoute.delete('/:id', AuthMiddleware.authAdmin, TourController.deleteTour);
+TourRoute.get('/:id', TourController.getTourById);
+TourRoute.get('/', TourController.getTours);
 
 export default TourRoute;
