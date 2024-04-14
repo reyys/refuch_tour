@@ -5,7 +5,7 @@ import { MongoError } from 'mongodb';
 import mongoose from 'mongoose';
 
 export class AuthController {
-    public static async signUp(req: Request, res: Response) {
+    public static async register(req: Request, res: Response) {
         try {
             const newUser = new User(req.body);
             await newUser.save();
@@ -36,7 +36,7 @@ export class AuthController {
         }
     }
 
-    public static async signIn(req: Request, res: Response) {
+    public static async login(req: Request, res: Response) {
         try {
             const { email, password } = req.body;
             const user = await User.findOne({ email });
