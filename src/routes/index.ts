@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import AuthRoute from './AuthRoute';
 import BlogRoute from './BlogRoute';
+import HealthRoute from './HealthRoute';
 import ServiceRoute from './ServiceRoute';
 import TestimonialRoute from './TestimonialRoute';
 import TourRoute from './TourRoute';
@@ -16,5 +17,6 @@ router.use('/testimonial', TestimonialRoute);
 router.use('/service', ServiceRoute);
 router.use('/upload', UploadRoute);
 router.use('/user', UserRoute);
+router.use('/health', HealthRoute);
 
 export default router;
