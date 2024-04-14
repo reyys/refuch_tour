@@ -1,5 +1,5 @@
 import cors from 'cors';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
@@ -7,7 +7,6 @@ import morgan from 'morgan';
 import { Helper } from './helpers/Helper';
 import router from './routes';
 
-dotenv.config();
 Helper.validateEnvVars();
 
 mongoose.connect(process.env.MONGODB_URI!);
