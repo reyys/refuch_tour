@@ -1,5 +1,4 @@
 import { Tour } from '@/models/TourModel';
-import { UploadService } from '@/services/UploadService';
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
@@ -7,14 +6,8 @@ export class TourController {
     public static async addTour(req: Request, res: Response) {
         try {
             await Tour.validate(req.body, {
-                pathsToSkip: ['imageUrl', 'slug']
+                pathsToSkip: ['slug']
             });
-            if (!req.file) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Please upload an image'
-                });
-            }
 
             const exists = await Tour.findOne({ name: req.body.name });
             if (exists) {
@@ -23,10 +16,6 @@ export class TourController {
                     message: 'Tour with the same name exists'
                 });
             }
-            const imageUrl = await UploadService.upload(req.file, {
-                tourName: req.body.name
-            });
-            req.body.imageUrl = imageUrl;
 
             await Tour.create(req.body);
             return res.status(201).json({ success: true });

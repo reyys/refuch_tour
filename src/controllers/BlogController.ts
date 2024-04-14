@@ -1,19 +1,12 @@
 import { Blog } from '@/models/BlogModel';
-import { UploadService } from '@/services/UploadService';
 import { Request, Response } from 'express';
 
 export class BlogController {
     public static async addBlog(req: Request, res: Response) {
         try {
             await Blog.validate(req.body, {
-                pathsToSkip: ['imageUrl', 'slug']
+                pathsToSkip: ['slug']
             });
-            if (!req.file) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Please upload an image'
-                });
-            }
 
             const exists = await Blog.findOne({ title: req.body.title });
             if (exists) {
@@ -22,10 +15,6 @@ export class BlogController {
                     message: 'Blog with the same title exists'
                 });
             }
-            const imageUrl = await UploadService.upload(req.file, {
-                blogTitle: req.body.title
-            });
-            req.body.imageUrl = imageUrl;
 
             await Blog.create(req.body);
             return res.status(201).json({ success: true });
