@@ -13,7 +13,6 @@ export class AuthController {
                 success: true,
                 data: {
                     userId: newUser._id,
-                    name: newUser.name,
                     email: newUser.email
                 }
             });
