@@ -12,7 +12,8 @@ BlogRoute.post(
     BlogController.addBlog
 );
 BlogRoute.delete('/:id', AuthMiddleware.authAdmin, BlogController.deleteBlog);
-BlogRoute.get('/:id', BlogController.getBlogById);
+// BlogRoute.get('/:id', BlogController.getBlogById);
+BlogRoute.get('/:slug', BlogController.getBlogBySlug);
 BlogRoute.get('/', BlogController.getBlogs);
 
 export default BlogRoute;

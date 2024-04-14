@@ -76,6 +76,25 @@ export class BlogController {
         }
     }
 
+    public static async getBlogBySlug(req: Request, res: Response) {
+        try {
+            const blog = await Blog.findOne({ slug: req.params.slug });
+            if (!blog) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Blog not found'
+                });
+            }
+
+            return res.status(200).json({ success: true, data: blog });
+        } catch (e) {
+            console.error(e);
+            return res
+                .status(500)
+                .json({ success: false, message: 'Internal server error' });
+        }
+    }
+
     public static async deleteBlog(req: Request, res: Response) {
         try {
             const blog = await Blog.findById(req.params.id);

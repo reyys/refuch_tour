@@ -83,6 +83,24 @@ export class TourController {
         }
     }
 
+    public static async getTourBySlug(req: Request, res: Response) {
+        try {
+            const tour = await Tour.findOne({ slug: req.params.slug });
+            if (!tour) {
+                return res
+                    .status(404)
+                    .json({ success: false, message: 'Tour not found' });
+            }
+
+            return res.status(200).json({ success: true, data: tour });
+        } catch (e) {
+            console.error(e);
+            return res
+                .status(500)
+                .json({ success: false, message: 'Internal server error' });
+        }
+    }
+
     public static async deleteTour(req: Request, res: Response) {
         try {
             const tour = await Tour.findById(req.params.id);
