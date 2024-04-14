@@ -5,6 +5,7 @@ import ServiceRoute from './ServiceRoute';
 import TestimonialRoute from './TestimonialRoute';
 import TourRoute from './TourRoute';
 import UploadRoute from './UploadRoute';
+import UserRoute from './UserRoute';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/tour', TourRoute);
 router.use('/testimonial', TestimonialRoute);
 router.use('/service', ServiceRoute);
 router.use('/upload', UploadRoute);
+router.use('/user', UserRoute);
 
 export default router;
