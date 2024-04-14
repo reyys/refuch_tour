@@ -7,13 +7,26 @@ import mongoose from 'mongoose';
 export class AuthController {
     public static async register(req: Request, res: Response) {
         try {
-            const newUser = new User(req.body);
-            await newUser.save();
+            const user = new User(req.body);
+            await user.save();
+
+            const payload = {
+                _id: user._id,
+                email: user.email,
+                role: user.role
+            };
+            const token = jwt.sign(payload, process.env.JWT_SECRET!);
+
             res.status(201).json({
                 success: true,
-                data: {
-                    userId: newUser._id,
-                    email: newUser.email
+                token,
+                user: {
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    phone: user.phone,
+                    role: user.role
                 }
             });
         } catch (e) {
@@ -48,16 +61,23 @@ export class AuthController {
             }
 
             const payload = {
-                userId: user._id,
+                _id: user._id,
                 email: user.email,
                 role: user.role
             };
-
             const token = jwt.sign(payload, process.env.JWT_SECRET!);
 
             res.status(200).json({
                 success: true,
-                token
+                token,
+                user: {
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    phone: user.phone,
+                    role: user.role
+                }
             });
         } catch (e) {
             console.error(e);
