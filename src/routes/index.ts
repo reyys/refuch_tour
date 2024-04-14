@@ -2,6 +2,7 @@ import { Router } from 'express';
 import AuthRoute from './AuthRoute';
 import BlogRoute from './BlogRoute';
 import HealthRoute from './HealthRoute';
+import PaymentRoute from './PaymentRoute';
 import ServiceRoute from './ServiceRoute';
 import TestimonialRoute from './TestimonialRoute';
 import TourRoute from './TourRoute';
@@ -18,5 +19,6 @@ router.use('/service', ServiceRoute);
 router.use('/upload', UploadRoute);
 router.use('/user', UserRoute);
 router.use('/health', HealthRoute);
+router.use('/payment', PaymentRoute);
 
 export default router;
