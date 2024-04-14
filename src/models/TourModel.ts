@@ -1,7 +1,7 @@
-import mongoose, { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 
 export interface ITour {
-    _id: mongoose.Types.ObjectId;
+    _id: Types.ObjectId;
     name: string;
     slug: string;
     description: string;
@@ -13,6 +13,9 @@ export interface ITour {
 
 const TourSchema = new Schema<ITour>(
     {
+        _id: {
+            type: Schema.Types.ObjectId
+        },
         name: {
             type: String,
             required: [true, 'Tour must have a name'],

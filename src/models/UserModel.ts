@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import crypto from 'crypto';
-import { Model, Schema, model } from 'mongoose';
+import { Model, Schema, Types, model } from 'mongoose';
 
 export interface IUser {
+    _id: Types.ObjectId;
     firstName: string;
     lastName: string;
     email: string;
@@ -19,6 +20,9 @@ type UserModel = Model<IUser, {}, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
     {
+        _id: {
+            type: Schema.Types.ObjectId
+        },
         firstName: {
             type: String,
             required: [true, 'User must have a first name'],
