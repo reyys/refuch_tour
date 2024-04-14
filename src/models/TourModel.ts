@@ -1,7 +1,9 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-interface ITour {
+export interface ITour {
+    _id: mongoose.Types.ObjectId;
     name: string;
+    slug: string;
     description: string;
     price: number;
     location: string;
@@ -16,6 +18,10 @@ const TourSchema = new Schema<ITour>(
             required: [true, 'Tour must have a name'],
             unique: true,
             trim: true
+        },
+        slug: {
+            type: String,
+            unique: true
         },
         description: {
             type: String,
@@ -41,5 +47,10 @@ const TourSchema = new Schema<ITour>(
     },
     { timestamps: true }
 );
+
+TourSchema.pre('save', function (next) {
+    this.slug = this.name.toLowerCase().split(' ').join('-');
+    next();
+});
 
 export const Tour = model<ITour>('Tour', TourSchema);

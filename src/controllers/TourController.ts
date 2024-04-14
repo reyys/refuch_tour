@@ -6,7 +6,9 @@ import mongoose from 'mongoose';
 export class TourController {
     public static async addTour(req: Request, res: Response) {
         try {
-            await Tour.validate(req.body, { pathsToSkip: ['imageUrl'] });
+            await Tour.validate(req.body, {
+                pathsToSkip: ['imageUrl', 'slug']
+            });
             if (!req.file) {
                 return res.status(400).json({
                     success: false,
