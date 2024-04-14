@@ -4,7 +4,7 @@ import TourRoute from './TourRoute';
 
 const router = Router();
 
-router.use('/api/auth', AuthRoute);
-router.use('/api/tour', TourRoute);
+router.use('/auth', AuthRoute);
+router.use('/tour', TourRoute);
 
 export default router;
