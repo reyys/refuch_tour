@@ -53,9 +53,7 @@ export class AuthController {
                 role: user.role
             };
 
-            const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-                expiresIn: '24h'
-            });
+            const token = jwt.sign(payload, process.env.JWT_SECRET!);
 
             res.status(200).json({
                 success: true,
