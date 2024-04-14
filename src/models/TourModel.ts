@@ -14,7 +14,8 @@ export interface ITour {
 const TourSchema = new Schema<ITour>(
     {
         _id: {
-            type: Schema.Types.ObjectId
+            type: Schema.Types.ObjectId,
+            default: new Types.ObjectId()
         },
         name: {
             type: String,
