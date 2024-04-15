@@ -10,13 +10,8 @@ export interface IService {
 
 const ServiceSchema = new Schema<IService>(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            default: new Types.ObjectId()
-        },
         slug: {
             type: String,
-            required: [true, 'Service must have a slug'],
             unique: true
         },
         title: {

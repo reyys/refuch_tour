@@ -12,13 +12,8 @@ export interface IBlog {
 
 const BlogSchema = new Schema<IBlog>(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            default: new Types.ObjectId()
-        },
         slug: {
             type: String,
-            required: [true, 'Blog must have a slug'],
             unique: true
         },
         title: {

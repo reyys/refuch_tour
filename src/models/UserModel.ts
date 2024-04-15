@@ -20,10 +20,6 @@ type UserModel = Model<IUser, {}, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            default: new Types.ObjectId()
-        },
         firstName: {
             type: String,
             required: [true, 'User must have a first name'],

@@ -10,9 +10,6 @@ export interface ITestimonial {
 
 const TestimonialSchema = new Schema<ITestimonial>(
     {
-        _id: {
-            type: Schema.Types.ObjectId
-        },
         avatarUrl: {
             type: String,
             required: [true, 'Testimonial must have an avatar'],
