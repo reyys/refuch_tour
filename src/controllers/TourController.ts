@@ -90,6 +90,36 @@ export class TourController {
         }
     }
 
+    public static async updateTour(req: Request, res: Response) {
+        try {
+            const tour = await Tour.findById(req.params.id);
+            if (!tour) {
+                return res
+                    .status(404)
+                    .json({ success: false, message: 'Tour not found' });
+            }
+
+            await Tour.validate(req.body, {
+                pathsToSkip: ['slug']
+            });
+
+            await tour.updateOne(req.body);
+            return res.status(200).json({ success: true });
+        } catch (e) {
+            console.error(e);
+            if (e instanceof mongoose.Error.ValidationError) {
+                return res.status(400).json({
+                    success: false,
+                    message: e.message
+                });
+            } else {
+                return res
+                    .status(500)
+                    .json({ success: false, message: 'Internal server error' });
+            }
+        }
+    }
+
     public static async deleteTour(req: Request, res: Response) {
         try {
             const tour = await Tour.findById(req.params.id);

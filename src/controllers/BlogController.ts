@@ -1,5 +1,6 @@
 import { Blog } from '@/models/BlogModel';
 import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 export class BlogController {
     public static async addBlog(req: Request, res: Response) {
@@ -81,6 +82,37 @@ export class BlogController {
             return res
                 .status(500)
                 .json({ success: false, message: 'Internal server error' });
+        }
+    }
+
+    public static async updateBlog(req: Request, res: Response) {
+        try {
+            const blog = await Blog.findById(req.params.id);
+            if (!blog) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Blog not found'
+                });
+            }
+
+            await Blog.validate(req.body, {
+                pathsToSkip: ['slug']
+            });
+
+            await blog.updateOne(req.body);
+            return res.status(200).json({ success: true });
+        } catch (e) {
+            console.error(e);
+            if (e instanceof mongoose.Error.ValidationError) {
+                return res.status(400).json({
+                    success: false,
+                    message: e.message
+                });
+            } else {
+                return res
+                    .status(500)
+                    .json({ success: false, message: 'Internal server error' });
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 import { Service } from '@/models/ServiceModel';
 import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 export class ServiceController {
     public static async addService(req: Request, res: Response) {
@@ -83,6 +84,37 @@ export class ServiceController {
             return res
                 .status(500)
                 .json({ success: false, message: 'Internal server error' });
+        }
+    }
+
+    public static async updateService(req: Request, res: Response) {
+        try {
+            const service = await Service.findById(req.params.id);
+            if (!service) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Service not found'
+                });
+            }
+
+            await Service.validate(req.body, {
+                pathsToSkip: ['slug']
+            });
+
+            await service.updateOne(req.body);
+            return res.status(200).json({ success: true });
+        } catch (e) {
+            console.error(e);
+            if (e instanceof mongoose.Error.ValidationError) {
+                return res.status(400).json({
+                    success: false,
+                    message: e.message
+                });
+            } else {
+                return res
+                    .status(500)
+                    .json({ success: false, message: 'Internal server error' });
+            }
         }
     }
 

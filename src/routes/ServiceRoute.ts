@@ -13,5 +13,10 @@ ServiceRoute.delete(
 // ServiceRoute.get('/:id', ServiceController.getServiceById);
 ServiceRoute.get('/:slug', ServiceController.getServiceBySlug);
 ServiceRoute.get('/', ServiceController.getServices);
+ServiceRoute.patch(
+    '/:id',
+    AuthMiddleware.authAdmin,
+    ServiceController.updateService
+);
 
 export default ServiceRoute;
