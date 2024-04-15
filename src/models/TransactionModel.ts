@@ -15,7 +15,7 @@ const TransactionSchema = new Schema<ITransaction>(
     {
         _id: {
             type: Schema.Types.ObjectId,
-            default: new Types.ObjectId(),
+            default: new Types.ObjectId()
         },
         transaction_id: {
             type: String,

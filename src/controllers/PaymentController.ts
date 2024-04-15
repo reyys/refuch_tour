@@ -19,7 +19,7 @@ export class PaymentController {
                 res.locals.user._id,
                 boughtTour
             );
-            
+
             res.status(200).json({
                 success: true,
                 redirect_url: redirect_url
