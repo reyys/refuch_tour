@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 export class UserController {
     public static async getUserFromToken(req: Request, res: Response) {
         try {
-            console.log(res.locals);
             const user = await User.findById(res.locals.user._id);
             if (!user) {
                 return res
