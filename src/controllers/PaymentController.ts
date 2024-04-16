@@ -1,35 +1,32 @@
-import { ITour, Tour } from '@/models/TourModel';
 import { PaymentService } from '@/services/PaymentService';
 import { Request, Response } from 'express';
 
 export class PaymentController {
     public static async createPayment(req: Request, res: Response) {
         try {
-            const boughtTour: ITour | null = await Tour.findById(
-                req.body.boughtTourId
-            ).lean();
-
-            if (!boughtTour) {
-                return res.status(400).json({
-                    success: false
-                });
-            }
-
-            const redirect_url = await PaymentService.createPaymentRedirectUrl(
+            const invoice_url = await PaymentService.createInvoiceUrl(
                 res.locals.user._id,
-                boughtTour
+                req.body.boughtTourId,
+                `${req.get('origin')}/dashboard`
             );
 
             res.status(200).json({
                 success: true,
-                redirect_url: redirect_url
+                invoice_url
             });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({
-                success: false,
-                message: 'Internal server error'
-            });
+        } catch (e) {
+            console.error(e);
+            if (e instanceof Error) {
+                res.status(500).json({
+                    success: false,
+                    message: e.message
+                });
+            } else {
+                res.status(500).json({
+                    success: false,
+                    message: 'Error creating payment'
+                });
+            }
         }
     }
 
@@ -38,8 +35,8 @@ export class PaymentController {
             const notification = req.body;
             await PaymentService.handlePaymentNotification(notification);
             res.sendStatus(200);
-        } catch (error) {
-            console.error(error);
+        } catch (e) {
+            console.error(e);
             res.sendStatus(500);
         }
     }

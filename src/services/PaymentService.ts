@@ -1,4 +1,4 @@
-import { ITour } from '@/models/TourModel';
+import { Tour } from '@/models/TourModel';
 import { Transaction } from '@/models/TransactionModel';
 import { User } from '@/models/UserModel';
 import { MidtransClient } from 'midtrans-node-client';
@@ -12,9 +12,17 @@ const snap = new MidtransClient.Snap({
 });
 
 export class PaymentService {
-    public static async createPaymentRedirectUrl(userId: string, tour: ITour) {
+    public static async createInvoiceUrl(
+        userId: string,
+        tourId: string,
+        finishUrl: string
+    ) {
         try {
-            const params = await this.createPaymentParams(userId, tour);
+            const params = await this.createPaymentParams(
+                userId,
+                tourId,
+                finishUrl
+            );
             const redirect_url =
                 await snap.createTransactionRedirectUrl(params);
             return redirect_url;
@@ -49,10 +57,19 @@ export class PaymentService {
         }
     }
 
-    private static async createPaymentParams(userId: string, tour: ITour) {
+    private static async createPaymentParams(
+        userId: string,
+        tourId: string,
+        finishUrl: string
+    ) {
         const user = await User.findById(userId);
         if (!user) {
             throw new Error('User not found');
+        }
+
+        const tour = await Tour.findById(tourId);
+        if (!tour) {
+            throw new Error('Tour not found');
         }
 
         return {
@@ -75,6 +92,9 @@ export class PaymentService {
                 },
                 credit_card: {
                     secure: true
+                },
+                callbacks: {
+                    finish: finishUrl
                 }
             }
         } as Partial<TransactionRequestType>;
