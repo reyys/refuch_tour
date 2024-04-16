@@ -36,7 +36,15 @@ export class TourController {
 
     public static async getTours(req: Request, res: Response) {
         try {
-            const tours = await Tour.find();
+            let tours;
+            if (req.query.name) {
+                tours = await Tour.find({
+                    name: { $regex: req.query.name, $options: 'i' }
+                });
+            } else {
+                tours = await Tour.find();
+            }
+
             if (!tours) {
                 return res
                     .status(404)
