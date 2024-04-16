@@ -1,0 +1,85 @@
+<div
+  [ngClass]="{
+    'translate-x-[0%]': showMenu,
+    'translate-x-[-100%]': !showMenu
+  }"
+  class="fixed left-0 top-0 bottom-0 p-5 bg-white drop-shadow-lg z-[99] transition-all flex flex-col space-y-5 md:hidden"
+>
+  <div class="flex items-center space-x-5">
+    <a href="/">
+      <h2 class="font-semibold">Refuch Tour</h2>
+    </a>
+    <ng-icon
+      (click)="toggleMenu()"
+      class="text-[1.25rem]"
+      name="heroXMark"
+    ></ng-icon>
+  </div>
+  <a
+    *ngFor="let menu of menus; index as i"
+    class="text-black no-underline hover:text-primary transition-all"
+    href="{{ menu.link }}"
+  >
+    <p>{{ menu.label }}</p>
+  </a>
+  @if (user) {
+  <a [routerLink]="['/dashboard']">
+    <p-button class="w-full">Dashboard</p-button>
+  </a>
+  <p-button (click)="signOut()" [outlined]="true" class="w-full"
+    >Sign Out</p-button
+  >
+  } @else {
+  <div class="flex flex-col space-y-5">
+    <a [routerLink]="['/login']">
+      <p-button [outlined]="true"> Login </p-button>
+    </a>
+    <a [routerLink]="['/register']">
+      <p-button> Register </p-button>
+    </a>
+  </div>
+  }
+</div>
+<header class="drop-shadow-lg border-b bg-white">
+  <div class="flex items-center justify-between p-5">
+    <a href="/" class="md:w-[300px]">
+      <h2 class="font-semibold">Refuch Tour</h2>
+    </a>
+    <div class="hidden md:flex items-center space-x-5 lg:space-x-8">
+      @for (menu of menus; track $index) {
+      <a
+        [routerLink]="[menu.link]"
+        [ngClass]="{
+          'text-primary': currentRoute === menu.link
+        }"
+        (click)="toggleActiveRoute(menu.link)"
+        class="text-black no-underline hover:text-primary transition-all"
+      >
+        <p>{{ menu.label }}</p>
+      </a>
+      }
+    </div>
+    @if (user) {
+    <div class="flex items-center space-x-5">
+      <a class="hidden md:inline" [routerLink]="['/dashboard']">
+        <p-button>Dashboard</p-button>
+      </a>
+      <p-button (click)="signOut()" [outlined]="true" class="w-full"
+        >Sign Out
+      </p-button>
+    </div>
+    } @else {
+    <div class="hidden md:w-[300px] md:flex justify-end items-center space-x-5">
+      <a [routerLink]="['/login']">
+        <p-button [outlined]="true"> Login </p-button>
+      </a>
+      <a [routerLink]="['/register']">
+        <p-button> Register </p-button>
+      </a>
+    </div>
+    }
+    <p-button (click)="toggleMenu()" class="md:hidden">
+      <ng-icon size="26" name="heroBars3"></ng-icon>
+    </p-button>
+  </div>
+</header>

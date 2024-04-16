@@ -3,6 +3,12 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      colors: {
+        primary: "#378CE7",
+        grey: {
+          DEFAULT: "#979DA4",
+        },
+      },
       container: {
         center: true,
         padding: {
@@ -15,6 +21,6 @@ module.exports = {
       },
     },
   },
-  corePlugins: { preflight: false },
+  corePlugins: { preflight: true },
   plugins: [],
 };

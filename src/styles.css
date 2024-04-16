@@ -1,24 +1,65 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tailwind-base, primeng, tailwind-utilities;
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
-/* Order */
-@layer reset, primeng;
+@layer tailwind-base {
+  @tailwind base;
+}
 
-/* Reset CSS */
-@layer reset {
-  button,
-  input {
-    /* CSS to Reset */
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+@layer base {
+  h1 {
+    @apply text-[30px] lg:text-[40px];
+  }
+  h2 {
+    @apply text-[20px] lg:text-[24px] xl:text-[28px];
+  }
+  h3 {
+    @apply text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px];
+  }
+  h4 {
+    @apply text-[16px] lg:text-[18px] xl:text-[20px];
+  }
+  h5 {
+    @apply text-[14px];
+  }
+  p {
+    @apply text-[16px];
   }
 }
 
-html,
-body {
-  height: 100%;
+html {
+  font-family: "DM Sans", sans-serif;
+  scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
+}
+
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+:host {
+  ::ng-deep .ui-button:focus,
+  ::ng-deep .ui-button:enabled:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
 }

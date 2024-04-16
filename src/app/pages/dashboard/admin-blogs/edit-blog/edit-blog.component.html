@@ -1,0 +1,47 @@
+<form
+  [formGroup]="blogForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col space-y-5 mt-5 bg-white rounded-md w-full"
+>
+  <div class="flex flex-col space-y-5">
+    <label for="title">Title:</label>
+    <p class="text-grey">Must be at least 10 characters</p>
+    <input type="text" pInputText id="title" formControlName="title" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="content">Content:</label>
+    <p class="text-grey">Must be at least 100 characters</p>
+    <textarea
+      rows="10"
+      pInputTextarea
+      id="content"
+      formControlName="content"
+    ></textarea>
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="author">Author:</label>
+    <input type="text" pInputText id="author" formControlName="author" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="image">Image:</label>
+    @if (imageUrl) {
+    <img [src]="imageUrl" class="w-full h-[200px] object-cover" />
+    }
+    <input type="file" (change)="onFileChange($event)" id="image" />
+  </div>
+
+  <button
+    class="w-full p-3 text-white"
+    [ngClass]="{
+      'bg-primary ripple': blogForm.valid,
+      'bg-gray-400': !blogForm.valid
+    }"
+    type="submit"
+    [disabled]="!blogForm.valid || loading"
+  >
+    {{ loading ? "Loading..." : "Edit Blog" }}
+  </button>
+</form>

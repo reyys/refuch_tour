@@ -1,0 +1,40 @@
+<section class="container py-5 md:py-8">
+  <p-tabMenu
+    #tab
+    [model]="items"
+    [activeItem]="activeItem"
+    (click)="changeActiveItem(tab)"
+  >
+    <ng-template pTemplate="item" let-item>
+      <a
+        class="p-menuitem-link flex justify-content-between align-items-center p-3"
+      >
+        <div>
+          <span [class]="item.icon"></span>
+          <span> {{ item.label }}</span>
+        </div>
+        <div>
+          <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{
+            item.shortcut
+          }}</span>
+          <p-badge
+            *ngIf="item.badge"
+            [value]="item.badge"
+            [severity]="item.badgeSeverity"
+          ></p-badge>
+        </div>
+      </a>
+    </ng-template>
+  </p-tabMenu>
+  <div class="mt-5">
+    @switch (activeItem?.label) { @case ("Transactions") {
+    <app-transactions></app-transactions>
+    } @case ("Blogs") {
+    <app-admin-blogs></app-admin-blogs>
+    } @case ("Services") {
+    <app-admin-services></app-admin-services>
+    } @case ("Tours") {
+    <app-admin-tours></app-admin-tours>
+    } }
+  </div>
+</section>

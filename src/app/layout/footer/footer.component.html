@@ -1,0 +1,63 @@
+<p-toast></p-toast>
+<footer class="bg-white drop-shadow-lg border-t">
+  <div
+    class="p-5 lg:p-8 flex flex-col space-y-5 lg:space-y-0 lg:flex-row justify-between lg:space-x-8 xl:space-x-12 container lg:py-12"
+  >
+    <div class="w-full flex flex-col space-y-5">
+      <h3 class="font-semibold leading-none">Refuch Tour</h3>
+      <p class="mt-3">The Best Travel & Tour Solution in Indonesia.</p>
+      <a
+        href="mailto:refuch@reynaldo.fun"
+        class="hover:text-primary transition-all flex items-center space-x-2"
+      >
+        <ng-icon name="heroEnvelope"></ng-icon>
+        <p>{{ "refuch@reynaldo.fun" }}</p>
+      </a>
+      <a
+        href="tel:+6285881629178"
+        class="hover:text-primary transition-all flex items-center space-x-2"
+      >
+        <ng-icon name="heroPhone"></ng-icon>
+        <p>{{ "+6285881629178" }}</p>
+      </a>
+    </div>
+    <div class="w-full" *ngFor="let item of menus; index as i">
+      <h3 class="font-semibold leading-none">{{ item.label }}</h3>
+      <div *ngFor="let children of item.children; index as z" class="mt-5">
+        <a
+          class="mb-3 hover:underline hover:text-primary transition-all"
+          [href]="children.link"
+          >{{ children.label }}</a
+        >
+      </div>
+    </div>
+    <div class="w-full flex flex-col space-y-5">
+      <h3 class="font-semibold leading-none">Newsletter</h3>
+      <p>Subscribe to our newsletter to get latest information</p>
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="newsletterForm"
+        class="p-2 border flex flex-col w-full md:max-w-[400px]"
+      >
+        <input
+          formControlName="email"
+          required
+          type="email"
+          class="px-1 pb-2 outline-none"
+          placeholder="Input your email"
+        />
+        <button
+          [disabled]="!newsletterForm.valid"
+          type="submit"
+          [ngClass]="{
+            'bg-primary ripple': newsletterForm.valid,
+            'bg-gray-400': !newsletterForm.valid
+          }"
+          class="w-full bg-primary text-white p-2 rounded-md"
+        >
+          {{ loading ? "Loading..." : "Subscribe" }}
+        </button>
+      </form>
+    </div>
+  </div>
+</footer>

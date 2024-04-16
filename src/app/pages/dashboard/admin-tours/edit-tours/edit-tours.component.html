@@ -1,0 +1,56 @@
+<form
+  [formGroup]="tourForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col space-y-5 mt-5 bg-white rounded-md w-full"
+>
+  <div class="flex flex-col space-y-5">
+    <label for="name">Name:</label>
+    <p class="text-grey">Must be at least 10 characters</p>
+    <input type="text" pInputText id="name" formControlName="name" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="description">Description:</label>
+    <p class="text-grey">Must be at least 100 characters</p>
+    <textarea
+      rows="10"
+      pInputTextarea
+      id="description"
+      formControlName="description"
+    ></textarea>
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="price">Price:</label>
+    <input type="number" pInputText id="price" formControlName="price" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="location">Location:</label>
+    <input type="text" pInputText id="location" formControlName="location" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="duration">Duration (days):</label>
+    <input type="number" pInputText id="duration" formControlName="duration" />
+  </div>
+  <div class="flex flex-col space-y-5">
+    <label for="image">Image:</label>
+    @if (imageUrl) {
+    <img [src]="imageUrl" class="w-full h-[200px] object-cover" />
+    }
+    <input type="file" (change)="onFileChange($event)" id="image" />
+  </div>
+
+  <button
+    class="w-full p-3 text-white"
+    [ngClass]="{
+      'bg-primary ripple': tourForm.valid,
+      'bg-gray-400': !tourForm.valid
+    }"
+    type="submit"
+    [disabled]="!tourForm.valid || loading"
+  >
+    {{ loading ? "Loading..." : "Edit Blog" }}
+  </button>
+</form>
