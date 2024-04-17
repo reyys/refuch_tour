@@ -6,6 +6,7 @@ import PaymentRoute from './PaymentRoute';
 import ServiceRoute from './ServiceRoute';
 import TestimonialRoute from './TestimonialRoute';
 import TourRoute from './TourRoute';
+import TransactionRoute from './TransactionRoute';
 import UploadRoute from './UploadRoute';
 import UserRoute from './UserRoute';
 
@@ -20,5 +21,6 @@ router.use('/upload', UploadRoute);
 router.use('/user', UserRoute);
 router.use('/health', HealthRoute);
 router.use('/payment', PaymentRoute);
+router.use('/transaction', TransactionRoute);
 
 export default router;
