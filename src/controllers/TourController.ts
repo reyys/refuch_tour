@@ -1,6 +1,6 @@
-import { Tour } from '@/models/TourModel';
+import { ITour, Tour } from '@/models/TourModel';
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
+import mongoose, { FilterQuery } from 'mongoose';
 
 export class TourController {
     public static async addTour(req: Request, res: Response) {
@@ -36,20 +36,47 @@ export class TourController {
 
     public static async getTours(req: Request, res: Response) {
         try {
-            let tours;
+            const filter: FilterQuery<ITour> = {};
             if (req.query.name) {
-                tours = await Tour.find({
-                    name: { $regex: req.query.name, $options: 'i' }
-                });
-            } else {
-                tours = await Tour.find();
+                filter.name = { $regex: req.query.name, $options: 'i' };
             }
 
-            if (!tours) {
-                return res
-                    .status(404)
-                    .json({ success: false, message: 'No tours found' });
+            if (req.query.location) {
+                filter.location = { $regex: req.query.location, $options: 'i' };
             }
+
+            if (req.query.duration) {
+                const duration = req.query.duration.toString();
+                if (duration.startsWith('<')) {
+                    filter.duration = {
+                        $lt: duration.slice(1)
+                    };
+                } else if (duration.startsWith('>')) {
+                    filter.duration = {
+                        $gt: duration.slice(1)
+                    };
+                }
+            }
+
+            if (req.query.price) {
+                const price = req.query.price.toString();
+                if (price.startsWith('<')) {
+                    filter.price = {
+                        $lt: price.slice(1)
+                    };
+                } else if (price.startsWith('>')) {
+                    filter.price = {
+                        $gt: price.slice(1)
+                    };
+                }
+            }
+
+            const sortBy = req.query.sortBy?.toString() || 'createdAt';
+
+            const fields =
+                req.query.fields?.toString().split(',').join(' ') || '';
+
+            const tours = await Tour.find(filter).sort(sortBy).select(fields);
 
             return res
                 .status(200)
