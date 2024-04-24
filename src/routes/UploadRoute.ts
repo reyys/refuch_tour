@@ -8,7 +8,7 @@ const UploadRoute = Router();
 UploadRoute.post(
     '/image',
     AuthMiddleware.authAdmin,
-    MulterMiddleware.upload.single('image'),
+    MulterMiddleware.uploadSingleImage,
     UploadController.uploadImage
 );
 
