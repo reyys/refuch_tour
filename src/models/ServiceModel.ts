@@ -38,4 +38,11 @@ ServiceSchema.pre('save', function (next) {
     next();
 });
 
+ServiceSchema.pre('updateOne', function (next) {
+    this.setUpdate({
+        slug: this.get('title').toLowerCase().split(' ').join('-')
+    });
+    next();
+});
+
 export const Service = model<IService>('Service', ServiceSchema);

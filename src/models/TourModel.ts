@@ -53,4 +53,11 @@ TourSchema.pre('save', function (next) {
     next();
 });
 
+TourSchema.pre('updateOne', function (next) {
+    this.setUpdate({
+        slug: this.get('name').toLowerCase().split(' ').join('-')
+    });
+    next();
+});
+
 export const Tour = model<ITour>('Tour', TourSchema);

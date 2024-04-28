@@ -50,4 +50,11 @@ BlogSchema.pre('save', function (next) {
     next();
 });
 
+BlogSchema.pre('updateOne', function (next) {
+    this.setUpdate({
+        slug: this.get('title').toLowerCase().split(' ').join('-')
+    });
+    next();
+});
+
 export const Blog = model<IBlog>('Blog', BlogSchema);
