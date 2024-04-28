@@ -18,7 +18,7 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(morgan('common'));
 app.use('/api', router);
 
 app.listen(port, () => {
