@@ -13,14 +13,14 @@ import UserRoute from './UserRoute';
 const router = Router();
 
 router.use('/auth', AuthRoute);
-router.use('/blog', BlogRoute);
-router.use('/tour', TourRoute);
-router.use('/testimonial', TestimonialRoute);
-router.use('/service', ServiceRoute);
+router.use('/blogs', BlogRoute);
+router.use('/tours', TourRoute);
+router.use('/testimonials', TestimonialRoute);
+router.use('/services', ServiceRoute);
 router.use('/upload', UploadRoute);
 router.use('/user', UserRoute);
 router.use('/health', HealthRoute);
-router.use('/payment', PaymentRoute);
-router.use('/transaction', TransactionRoute);
+router.use('/payments', PaymentRoute);
+router.use('/transactions', TransactionRoute);
 
 export default router;
