@@ -6,7 +6,6 @@ export interface IBlog {
     title: string;
     content: string;
     imageUrl: string;
-    tags: string[];
     author: string;
 }
 
@@ -29,11 +28,6 @@ const BlogSchema = new Schema<IBlog>(
         imageUrl: {
             type: String,
             required: [true, 'Blog must have an image'],
-            trim: true
-        },
-        tags: {
-            type: [String],
-            required: [true, 'Blog must have tags'],
             trim: true
         },
         author: {
