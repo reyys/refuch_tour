@@ -11,7 +11,7 @@ TestimonialRoute.post(
     AuthMiddleware.authAdmin,
     TestimonialController.addTestimonial
 );
-TestimonialRoute.patch(
+TestimonialRoute.put(
     '/:id',
     AuthMiddleware.authAdmin,
     TestimonialController.updateTestimonial

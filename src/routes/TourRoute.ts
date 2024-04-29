@@ -9,6 +9,6 @@ TourRoute.delete('/:id', AuthMiddleware.authAdmin, TourController.deleteTour);
 // TourRoute.get('/:id', TourController.getTourById);
 TourRoute.get('/:slug', TourController.getTourBySlug);
 TourRoute.get('/', TourController.getTours);
-TourRoute.patch('/:id', AuthMiddleware.authAdmin, TourController.updateTour);
+TourRoute.put('/:id', AuthMiddleware.authAdmin, TourController.updateTour);
 
 export default TourRoute;
