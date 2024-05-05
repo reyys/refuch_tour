@@ -3,6 +3,7 @@ import { Schema, Types, model } from 'mongoose';
 export interface ITransaction {
     _id: Types.ObjectId;
     transaction_id: string;
+    user_id: Types.ObjectId;
     transaction_time: string;
     transaction_status: string;
     settlement_time: string;
@@ -15,6 +16,10 @@ const TransactionSchema = new Schema<ITransaction>(
     {
         transaction_id: {
             type: String,
+            required: true
+        },
+        user_id: {
+            type: Schema.Types.ObjectId,
             required: true
         },
         transaction_time: {

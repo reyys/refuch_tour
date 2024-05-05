@@ -39,6 +39,7 @@ export class PaymentService {
             await snap.transaction.notification(notification);
             const data = {
                 transaction_id: notification.transaction_id,
+                user_id: notification.custom_field1,
                 transaction_time: notification.transaction_time,
                 transaction_status: notification.transaction_status,
                 settlement_time: notification.settlement_time,
@@ -95,7 +96,8 @@ export class PaymentService {
                 },
                 callbacks: {
                     finish: finishUrl
-                }
+                },
+                custom_field1: userId.toString()
             }
         } as Partial<TransactionRequestType>;
     }
