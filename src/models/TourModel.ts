@@ -1,4 +1,5 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, UpdateQuery, model } from 'mongoose';
+import slug from 'slug';
 
 export interface ITour {
     _id: Types.ObjectId;
@@ -49,13 +50,13 @@ const TourSchema = new Schema<ITour>(
 );
 
 TourSchema.pre('save', function (next) {
-    this.slug = this.name.toLowerCase().split(' ').join('-');
+    this.slug = slug(this.name);
     next();
 });
 
 TourSchema.pre('updateOne', function (next) {
-    this.setUpdate({
-        slug: this.get('name').toLowerCase().split(' ').join('-')
+    this.set({
+        slug: slug((this.getUpdate() as UpdateQuery<ITour>).name)
     });
     next();
 });

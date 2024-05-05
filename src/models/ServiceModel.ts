@@ -1,4 +1,5 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, UpdateQuery, model } from 'mongoose';
+import slug from 'slug';
 
 export interface IService {
     _id: Types.ObjectId;
@@ -34,13 +35,13 @@ const ServiceSchema = new Schema<IService>(
 );
 
 ServiceSchema.pre('save', function (next) {
-    this.slug = this.title.toLowerCase().split(' ').join('-');
+    this.slug = slug(this.title);
     next();
 });
 
 ServiceSchema.pre('updateOne', function (next) {
-    this.setUpdate({
-        slug: this.get('title').toLowerCase().split(' ').join('-')
+    this.set({
+        slug: slug((this.getUpdate() as UpdateQuery<IService>).title)
     });
     next();
 });

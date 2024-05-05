@@ -1,4 +1,5 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, UpdateQuery, model } from 'mongoose';
+import slug from 'slug';
 
 export interface IBlog {
     _id: Types.ObjectId;
@@ -40,13 +41,13 @@ const BlogSchema = new Schema<IBlog>(
 );
 
 BlogSchema.pre('save', function (next) {
-    this.slug = this.title.toLowerCase().split(' ').join('-');
+    this.slug = slug(this.title);
     next();
 });
 
 BlogSchema.pre('updateOne', function (next) {
-    this.setUpdate({
-        slug: this.get('title').toLowerCase().split(' ').join('-')
+    this.set({
+        slug: slug((this.getUpdate() as UpdateQuery<IBlog>).title)
     });
     next();
 });
