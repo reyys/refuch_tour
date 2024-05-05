@@ -6,7 +6,7 @@ const TransactionRoute = Router();
 
 TransactionRoute.get(
     '/',
-    AuthMiddleware.authAdmin,
+    AuthMiddleware.authUser,
     TransactionController.getTransactions
 );
 
