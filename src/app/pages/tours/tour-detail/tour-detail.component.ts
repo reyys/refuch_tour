@@ -21,6 +21,7 @@ export class TourDetailComponent implements OnInit {
   loading = false;
   slug: string | undefined | null;
   tourData: Tour | undefined | null;
+  parsedDescription: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,10 @@ export class TourDetailComponent implements OnInit {
         if (this.slug) {
           this.tourService.getTourBySlug(this.slug).subscribe((response) => {
             this.tourData = response.data;
+            this.parsedDescription = response.data.description.replaceAll(
+              /\n/g,
+              '<br />'
+            );
           });
         }
       }
@@ -47,10 +52,11 @@ export class TourDetailComponent implements OnInit {
     this.loading = true;
     this.paymentService.payTour(this.tourData!._id).subscribe(
       (response) => {
-        window.location.href = response.redirect_url;
+        window.location.href = response.invoice_url;
         this.loading = false;
       },
       (error) => {
+        console.log(error);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

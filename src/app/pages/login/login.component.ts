@@ -46,7 +46,7 @@ export class LoginComponent {
       )
       .subscribe(
         (response) => {
-          localStorage.setItem('token', response.token);
+          this.authService.saveToken({ token: response.token });
           this.authService.user = response.user;
           this.messageService.add({
             severity: 'success',
@@ -55,9 +55,9 @@ export class LoginComponent {
           });
           this.loading = false;
           this.router.navigate(['/dashboard']);
+          window.location.reload();
         },
-        (error) => {
-          console.log(error);
+        (_) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Login Failed',

@@ -58,9 +58,9 @@ export class EditToursComponent {
     this.tourForm.patchValue({
       name: this.tour.name!,
       description: this.tour.description,
-      duration: this.tour.duration.toString(),
-      location: this.tour.location!,
       price: this.tour.price.toString(),
+      location: this.tour.location!,
+      duration: this.tour.duration.toString(),
     });
     this.imageUrl = this.tour.imageUrl;
   }
@@ -81,13 +81,14 @@ export class EditToursComponent {
             .updateTour(this.tour._id, {
               name: formData.name!,
               description: formData.description!,
-              duration: Number(formData.duration)!,
-              location: formData.location!,
               price: Number(formData.price)!,
+              location: formData.location!,
+              duration: Number(formData.duration)!,
               imageUrl: response.imageUrl,
             })
             .subscribe(
               (res) => {
+                console.log(res);
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Success',
@@ -110,9 +111,9 @@ export class EditToursComponent {
           .updateTour(this.tour._id, {
             name: formData.name!,
             description: formData.description!,
-            duration: Number(formData.duration)!,
-            location: formData.location!,
             price: Number(formData.price)!,
+            location: formData.location!,
+            duration: Number(formData.duration)!,
             imageUrl: this.tour.imageUrl,
           })
           .subscribe(

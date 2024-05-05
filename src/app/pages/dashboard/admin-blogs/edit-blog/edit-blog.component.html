@@ -37,7 +37,7 @@
     class="w-full p-3 text-white"
     [ngClass]="{
       'bg-primary ripple': blogForm.valid,
-      'bg-gray-400': !blogForm.valid
+      'bg-gray-400': !blogForm.valid || loading
     }"
     type="submit"
     [disabled]="!blogForm.valid || loading"

@@ -8,6 +8,34 @@
       memories to last a lifetime
     </p>
   </div>
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="onSubmit()"
+    class="flex items-center space-x-5 w-full mt-5 md:mt-8"
+  >
+    <div class="w-full">
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-search"></i>
+        <input
+          formControlName="query"
+          placeholder="Search blog title..."
+          class="w-full"
+          type="text"
+          pInputText
+        />
+      </span>
+    </div>
+    <p-button
+      [ngClass]="{
+        'bg-primary ripple': searchForm.valid,
+        'bg-gray-400': !searchForm.valid
+      }"
+      type="submit"
+      [disabled]="!searchForm.valid"
+      class="whitespace-nowrap"
+      >Search Blogs</p-button
+    >
+  </form>
   <div
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5 md:mt-8 lg:mt-12 w-full"
   >

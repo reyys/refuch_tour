@@ -1,40 +1,77 @@
-<section class="container py-5 md:py-8">
-  <p-tabMenu
-    #tab
-    [model]="items"
-    [activeItem]="activeItem"
-    (click)="changeActiveItem(tab)"
+<section
+  class="container py-5 md:py-8 flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-8"
+>
+  <div
+    class="p-5 drop-shadow-lg rounded-md bg-white h-fit whitespace-nowrap space-y-5 w-full max-w-[350px]"
   >
-    <ng-template pTemplate="item" let-item>
-      <a
-        class="p-menuitem-link flex justify-content-between align-items-center p-3"
+    @if (user?.role === "admin") {
+    <img
+      class="w-[200px] mx-auto rounded-full h-[200px]"
+      src="/assets/admin.jpg"
+    />
+    } @else {
+    <img
+      class="w-[200px] mx-auto rounded-full h-[200px]"
+      src="/assets/user.jpg"
+    />
+    }
+    <h4 class="font-semibold">User Information :</h4>
+    <p class="capitalize">
+      Full Name : {{ user?.firstName }} {{ user?.lastName }}
+    </p>
+    <p class="capitalize">Email : {{ user?.email }}</p>
+    <p>Phone Number : {{ user?.phone }}</p>
+    <p class="capitalize">Role : {{ user?.role }}</p>
+    <div>
+      <button
+        class="p-3 w-full bg-red-500 text-white rounded-md flex justify-center items-center space-x-2"
+        (click)="signOut()"
       >
-        <div>
-          <span [class]="item.icon"></span>
-          <span> {{ item.label }}</span>
-        </div>
-        <div>
-          <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{
-            item.shortcut
-          }}</span>
-          <p-badge
-            *ngIf="item.badge"
-            [value]="item.badge"
-            [severity]="item.badgeSeverity"
-          ></p-badge>
-        </div>
-      </a>
-    </ng-template>
-  </p-tabMenu>
-  <div class="mt-5">
-    @switch (activeItem?.label) { @case ("Transactions") {
-    <app-transactions></app-transactions>
-    } @case ("Blogs") {
-    <app-admin-blogs></app-admin-blogs>
-    } @case ("Services") {
-    <app-admin-services></app-admin-services>
-    } @case ("Tours") {
-    <app-admin-tours></app-admin-tours>
-    } }
+        <i class="pi pi-sign-out"></i>
+        <p>Sign Out</p>
+      </button>
+    </div>
+  </div>
+  <div class="w-full">
+    <p-tabMenu
+      #tab
+      [model]="items"
+      [activeItem]="activeItem"
+      (click)="changeActiveItem(tab)"
+    >
+      <ng-template pTemplate="item" let-item>
+        <a
+          class="p-menuitem-link flex justify-content-between align-items-center p-3"
+        >
+          <div>
+            <span [class]="item.icon"></span>
+            <span> {{ item.label }}</span>
+          </div>
+          <div>
+            <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{
+              item.shortcut
+            }}</span>
+            <p-badge
+              *ngIf="item.badge"
+              [value]="item.badge"
+              [severity]="item.badgeSeverity"
+            ></p-badge>
+          </div>
+        </a>
+      </ng-template>
+    </p-tabMenu>
+    <div class="mt-5">
+      @switch (activeItem?.label) { @case ("Transactions") {
+      <app-transactions></app-transactions>
+      } @case ("Blogs") {
+      <app-admin-blogs></app-admin-blogs>
+      } @case ("Services") {
+      <app-admin-services></app-admin-services>
+      } @case ("Tours") {
+      <app-admin-tours></app-admin-tours>
+      } @case ("Testimonials") {
+      <app-admin-testimonials></app-admin-testimonials>
+      } }
+    </div>
   </div>
 </section>

@@ -32,11 +32,11 @@
     class="w-full p-3 text-white"
     [ngClass]="{
       'bg-primary ripple': serviceForm.valid,
-      'bg-gray-400': !serviceForm.valid
+      'bg-gray-400': !serviceForm.valid || loading
     }"
     type="submit"
     [disabled]="!serviceForm.valid || loading"
   >
-    {{ loading ? "Loading..." : "Edit Blog" }}
+    {{ loading ? "Loading..." : "Edit Service" }}
   </button>
 </form>

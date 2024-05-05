@@ -10,6 +10,8 @@ import { BlogsComponent } from './pages/blogs/blogs.component';
 import { BlogDetailComponent } from './pages/blogs/blog-detail/blog-detail.component';
 import { ServiceComponent } from './pages/services/service.component';
 import { ServiceDetailComponent } from './pages/services/service-detail/service-detail.component';
+import { TourSearchComponent } from './pages/tours/tour-search/tour-search.component';
+import { BlogSearchComponent } from './pages/blogs/blog-search/blog-search.component';
 
 export const routes: Routes = [
   {
@@ -25,12 +27,20 @@ export const routes: Routes = [
     component: TourDetailComponent,
   },
   {
+    path: 'tours/search/:query',
+    component: TourSearchComponent,
+  },
+  {
     path: 'blogs',
     component: BlogsComponent,
   },
   {
     path: 'blogs/:slug',
     component: BlogDetailComponent,
+  },
+  {
+    path: 'blogs/search/:query',
+    component: BlogSearchComponent,
   },
   {
     path: 'services',

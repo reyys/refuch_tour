@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BACKEND_API_URL } from '../../data/urls';
+import { Injectable, inject } from '@angular/core';
 import { User } from '../../models/user.model';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from 'ngx-localstorage';
 import register from '../../interfaces/register.interface';
 import login from '../../interfaces/login.interface';
 
@@ -11,11 +11,13 @@ import login from '../../interfaces/login.interface';
 })
 export class AuthService {
   public user: Observable<User> | null | undefined;
+  protected readonly storageService = inject(LocalStorageService);
+  protected readonly storedToken = this.storageService.get<string>('token');
 
   constructor(private http: HttpClient) {}
 
   login({ email, password }: login): Observable<any> {
-    return this.http.post<{ user: User }>(`${BACKEND_API_URL}/api/auth/login`, {
+    return this.http.post<{ user: User }>(`api/auth/login`, {
       email,
       password,
     });
@@ -29,24 +31,35 @@ export class AuthService {
     phone,
     role,
   }: register): Observable<any> {
-    return this.http.post<{ user: User }>(
-      `${BACKEND_API_URL}/api/auth/register`,
-      {
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-        role,
-      }
-    );
+    return this.http.post<{ user: User }>(`api/auth/register`, {
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      role,
+    });
   }
 
-  getCurrentUser(): Observable<any> {
-    return this.http.get<{ user: User }>(`${BACKEND_API_URL}/api/user`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+  getCurrentUser(): Observable<any> | null {
+    const token = this.getToken();
+    if (token) {
+      return this.http.get<{ user: User }>(`api/user`);
+    } else {
+      return null;
+    }
+  }
+
+  getToken(): string | null {
+    const token = this.storageService.get<string>('token');
+    return token;
+  }
+
+  saveToken({ token }: { token: string }) {
+    this.storageService.set<string>('token', token);
+  }
+
+  clearToken() {
+    this.storageService.set('token', null);
   }
 }

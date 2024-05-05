@@ -46,7 +46,7 @@
     class="w-full p-3 text-white"
     [ngClass]="{
       'bg-primary ripple': tourForm.valid,
-      'bg-gray-400': !tourForm.valid,
+      'bg-gray-400': !tourForm.valid || loading,
     }"
     type="submit"
     [disabled]="!tourForm.valid || loading"
@@ -55,7 +55,7 @@
   </button>
 </form>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 mt-5">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
   @for (tour of tours; track $index) {
   <app-tour-card [tour]="tour" [adminMode]="true"> </app-tour-card>
   }

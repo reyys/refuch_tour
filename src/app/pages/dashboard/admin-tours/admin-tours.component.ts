@@ -71,10 +71,10 @@ export class AdminToursComponent implements OnInit {
             .createTour({
               name: formData.name!,
               description: formData.description!,
+              price: Number(formData.price)!,
+              location: formData.location!,
               duration: Number(formData.duration)!,
               imageUrl: response.imageUrl,
-              location: formData.location!,
-              price: Number(formData.price)!,
             })
             .subscribe(
               (res) => {
@@ -83,12 +83,12 @@ export class AdminToursComponent implements OnInit {
                   summary: 'Success',
                   detail: 'Tour Created Successfully',
                 });
-                // this.tourService
-                //   .getAllTours()
-                //   .subscribe((data) => (this.tours = data));
+                this.tourForm.reset();
+                this.image = undefined;
                 this.loading = false;
               },
               (error) => {
+                console.log(error);
                 this.messageService.add({
                   severity: 'error',
                   summary: 'Error',

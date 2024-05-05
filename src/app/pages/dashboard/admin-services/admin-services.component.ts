@@ -74,9 +74,8 @@ export class AdminServicesComponent {
                   summary: 'Success',
                   detail: 'Service Created Successfully',
                 });
-                // this.serviceService
-                //   .getAllServices()
-                //   .subscribe((data) => (this.services = data));
+                this.serviceForm.reset();
+                this.image = undefined;
                 this.loading = false;
               },
               (error) => {

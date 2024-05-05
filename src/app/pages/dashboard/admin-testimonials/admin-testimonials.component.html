@@ -1,0 +1,45 @@
+<form
+  [formGroup]="testimonialForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col space-y-5 mt-5"
+>
+  <h2 class="font-semibold">Create New Testimonial</h2>
+
+  <div class="flex flex-col space-y-5">
+    <label for="name">Name:</label>
+    <p class="text-grey">Must be at least 4 characters</p>
+    <input type="text" pInputText id="name" formControlName="name" />
+  </div>
+  <div class="flex flex-col space-y-5">
+    <label for="name">Comment:</label>
+    <p class="text-grey">Must be at least 20 characters</p>
+    <input type="text" pInputText id="comment" formControlName="comment" />
+  </div>
+  <div class="flex flex-col space-y-5">
+    <label for="name">Job:</label>
+    <p class="text-grey">Must be at least 4 characters</p>
+    <input type="text" pInputText id="job" formControlName="job" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="image">Image:</label>
+    <input type="file" (change)="onFileChange($event)" id="image" />
+  </div>
+
+  <button
+    class="w-full p-3 text-white"
+    [ngClass]="{
+      'bg-primary ripple': testimonialForm.valid,
+      'bg-gray-400': !testimonialForm.valid || loading,
+    }"
+    type="submit"
+    [disabled]="!testimonialForm.valid || loading"
+  >
+    {{ loading ? "Loading..." : "Create New Testimonial" }}
+  </button>
+</form>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 mt-5">
+  @for (testimonial of testimonials; track $index) {
+  <app-testimonial-card [testimonial]="testimonial" [adminMode]="true" />
+  }
+</div>

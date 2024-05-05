@@ -46,11 +46,11 @@
     class="w-full p-3 text-white"
     [ngClass]="{
       'bg-primary ripple': tourForm.valid,
-      'bg-gray-400': !tourForm.valid
+      'bg-gray-400': !tourForm.valid || loading
     }"
     type="submit"
     [disabled]="!tourForm.valid || loading"
   >
-    {{ loading ? "Loading..." : "Edit Blog" }}
+    {{ loading ? "Loading..." : "Edit Tour" }}
   </button>
 </form>

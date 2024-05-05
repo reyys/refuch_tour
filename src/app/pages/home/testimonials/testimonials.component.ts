@@ -5,11 +5,17 @@ import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroStarSolid } from '@ng-icons/heroicons/solid';
 import { TestimonialService } from '../../../services/testimonial/testimonial.service';
+import { TestimonialCardComponent } from './testimonial-card/testimonial-card.component';
 
 @Component({
   selector: 'app-testimonials',
   standalone: true,
-  imports: [CarouselModule, CommonModule, NgIconComponent],
+  imports: [
+    CarouselModule,
+    CommonModule,
+    NgIconComponent,
+    TestimonialCardComponent,
+  ],
   viewProviders: [provideIcons({ heroStarSolid })],
   templateUrl: './testimonials.component.html',
   styleUrl: './testimonials.component.css',

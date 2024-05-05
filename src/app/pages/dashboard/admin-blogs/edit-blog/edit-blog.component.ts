@@ -74,7 +74,6 @@ export class EditBlogComponent {
               title: formData.title,
               content: formData.content,
               imageUrl: response.imageUrl,
-              tags: ['Test'],
               author: formData.author,
             })
             .subscribe(
@@ -102,7 +101,6 @@ export class EditBlogComponent {
             title: formData.title,
             content: formData.content,
             imageUrl: this.blog.imageUrl,
-            tags: ['Test'],
             author: formData.author,
           })
           .subscribe(
@@ -115,6 +113,7 @@ export class EditBlogComponent {
               this.loading = false;
             },
             (error) => {
+              console.log(error);
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',

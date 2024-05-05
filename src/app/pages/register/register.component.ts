@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,10 +9,8 @@ import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroXMark } from '@ng-icons/heroicons/outline';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'app-register',
@@ -61,8 +59,7 @@ export class RegisterComponent {
       })
       .subscribe(
         (response) => {
-          console.log(response);
-          localStorage.setItem('token', response.token);
+          this.authService.saveToken({ token: response.token });
           this.authService.user = response.user;
           this.messageService.add({
             severity: 'success',
@@ -71,16 +68,15 @@ export class RegisterComponent {
           });
           this.loading = false;
           this.router.navigate(['/dashboard']);
+          window.location.reload();
         },
         (error) => {
-          console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Registration Failed',
-            detail: 'Invalid Information. Please try again',
+            detail: error.error.message,
           });
           this.loading = false;
-          this.registerForm.reset();
         }
       );
   }

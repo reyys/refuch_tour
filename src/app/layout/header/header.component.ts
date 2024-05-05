@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { Router, RouterLink } from '@angular/router';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,7 @@ import { Router, RouterLink } from '@angular/router';
     ButtonModule,
     DialogModule,
     RouterLink,
+    SkeletonModule,
   ],
   viewProviders: [provideIcons({ heroBars3, heroXMark })],
   templateUrl: './header.component.html',
@@ -24,6 +26,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   currentRoute: string | undefined = undefined;
+  userLoading: boolean = false;
   user: User | undefined;
   menus: { label: string; link: string }[] = [
     { label: 'Home', link: '/' },
@@ -35,29 +38,27 @@ export class HeaderComponent implements OnInit {
 
   showMenu = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    afterRender(() => {
-      const token = localStorage.getItem('token');
-      if (!this.user && token !== null) {
-        this.authService.getCurrentUser().subscribe((response) => {
-          this.user = response.user;
-        });
-      }
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((response) => {
-      this.authService.user = response.user;
-    });
+    this.userLoading = true;
+    this.authService.getCurrentUser()?.subscribe(
+      (response) => {
+        this.authService.user = response.user;
+        this.user = response.user;
+        this.userLoading = false;
+      },
+      (err) => {
+        this.userLoading = false;
+      }
+    );
   }
 
   signOut() {
-    localStorage.setItem('token', '');
+    this.authService.clearToken();
     this.router.navigate(['']);
     this.user = undefined;
     this.showMenu = false;
-    console.log(this.user);
   }
 
   toggleActiveRoute(activeRoute: string) {

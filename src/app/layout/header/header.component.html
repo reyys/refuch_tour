@@ -1,9 +1,10 @@
+<!-- Mobile  -->
 <div
   [ngClass]="{
     'translate-x-[0%]': showMenu,
     'translate-x-[-100%]': !showMenu
   }"
-  class="fixed left-0 top-0 bottom-0 p-5 bg-white drop-shadow-lg z-[99] transition-all flex flex-col space-y-5 md:hidden"
+  class="fixed left-0 top-0 bottom-0 p-5 bg-white drop-shadow-lg z-[99] transition-all flex flex-col space-y-5 lg:hidden"
 >
   <div class="flex items-center space-x-5">
     <a href="/">
@@ -22,6 +23,7 @@
   >
     <p>{{ menu.label }}</p>
   </a>
+
   @if (user) {
   <a [routerLink]="['/dashboard']">
     <p-button class="w-full">Dashboard</p-button>
@@ -40,12 +42,14 @@
   </div>
   }
 </div>
+
+<!-- Desktop  -->
 <header class="drop-shadow-lg border-b bg-white">
   <div class="flex items-center justify-between p-5">
-    <a href="/" class="md:w-[300px]">
+    <a href="/">
       <h2 class="font-semibold">Refuch Tour</h2>
     </a>
-    <div class="hidden md:flex items-center space-x-5 lg:space-x-8">
+    <div class="hidden lg:flex items-center space-x-5 lg:space-x-8">
       @for (menu of menus; track $index) {
       <a
         [routerLink]="[menu.link]"
@@ -59,9 +63,14 @@
       </a>
       }
     </div>
-    @if (user) {
+    @if(userLoading) {
     <div class="flex items-center space-x-5">
-      <a class="hidden md:inline" [routerLink]="['/dashboard']">
+      <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
+      <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
+    </div>
+    } @else { @if (user) {
+    <div class="hidden lg:flex items-center space-x-5">
+      <a [routerLink]="['/dashboard']">
         <p-button>Dashboard</p-button>
       </a>
       <p-button (click)="signOut()" [outlined]="true" class="w-full"
@@ -77,8 +86,8 @@
         <p-button> Register </p-button>
       </a>
     </div>
-    }
-    <p-button (click)="toggleMenu()" class="md:hidden">
+    } }
+    <p-button (click)="toggleMenu()" class="lg:hidden">
       <ng-icon size="26" name="heroBars3"></ng-icon>
     </p-button>
   </div>

@@ -63,37 +63,46 @@ export class AdminBlogsComponent {
       const formData = this.blogForm.value;
       if (this.image) {
         this.loading = true;
-        this.imageService.uploadImage(this.image).subscribe((response) => {
-          this.blogService
-            .createBlog({
-              title: formData.title,
-              content: formData.content,
-              imageUrl: response.imageUrl,
-              author: formData.author,
-              tags: [],
-            })
-            .subscribe(
-              (res) => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Success',
-                  detail: 'Blog Created Successfully',
-                });
-                // this.serviceService
-                //   .getAllServices()
-                //   .subscribe((data) => (this.services = data));
-                this.loading = false;
-              },
-              (error) => {
-                this.messageService.add({
-                  severity: 'error',
-                  summary: 'Error',
-                  detail: 'Failed to create a new blog. Invalid data',
-                });
-                this.loading = false;
-              }
-            );
-        });
+        this.imageService.uploadImage(this.image).subscribe(
+          (response) => {
+            this.blogService
+              .createBlog({
+                title: formData.title,
+                content: formData.content,
+                imageUrl: response.imageUrl,
+                author: formData.author,
+              })
+              .subscribe(
+                (res) => {
+                  console.log(res);
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Blog Created Successfully',
+                  });
+                  this.blogForm.reset();
+                  this.image = undefined;
+                  this.loading = false;
+                },
+                (error) => {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Failed to create a new blog. Invalid data',
+                  });
+                  this.loading = false;
+                }
+              );
+          },
+          (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Failed to create a new blog. Invalid data',
+            });
+            this.loading = false;
+          }
+        );
       } else {
         this.messageService.add({
           severity: 'error',
