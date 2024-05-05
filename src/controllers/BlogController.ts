@@ -1,6 +1,7 @@
 import { Blog } from '@/models/BlogModel';
+import { ITour } from '@/models/TourModel';
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
+import mongoose, { FilterQuery } from 'mongoose';
 
 export class BlogController {
     public static async addBlog(req: Request, res: Response) {
@@ -29,12 +30,12 @@ export class BlogController {
 
     public static async getBlogs(req: Request, res: Response) {
         try {
-            const blogs = await Blog.find();
-            if (!blogs) {
-                return res
-                    .status(404)
-                    .json({ success: false, message: 'No blogs found' });
+            const filter: FilterQuery<ITour> = {};
+            if (req.query.title) {
+                filter.title = { $regex: req.query.title, $options: 'i' };
             }
+
+            const blogs = await Blog.find(filter);
 
             return res
                 .status(200)
