@@ -1,0 +1,94 @@
+{
+  "tours": [
+    {
+      "id": "acbcbcs",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "title": "Example tour",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      "image": "/assets/travel.jpg",
+      "price": 250000,
+      "slug": "example-tour",
+      "date": "2024-04-14T12:00:00.000Z"
+    },
+    {
+      "id": "ajsdiajd",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "title": "Example tour 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      "image": "/assets/travel.jpg",
+      "price": 250000,
+      "slug": "example-tour-2",
+      "date": "2024-04-14T12:00:00.000Z"
+    },
+    {
+      "id": "sidjwidxxx",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "title": "Example tour 3",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      "image": "/assets/travel.jpg",
+      "price": 250000,
+      "slug": "example-tour-3",
+      "date": "2024-04-14T12:00:00.000Z"
+    },
+    {
+      "id": "skdowww",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "title": "Example tour 4",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      "image": "/assets/travel.jpg",
+      "price": 250000,
+      "slug": "example-tour-2",
+      "date": "2024-04-14T12:00:00.000Z"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "iuaaa",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour sangatlah luar biasa dan memukau! Pengalaman liburan yang penuh dengan kegembiraan dan kenangan tak terlupakan. Saya pasti merekomendasikannya kepada semua orang!",
+      "name": "Andi Wijaya",
+      "job": "Pegawai Swasta"
+    },
+    {
+      "id": "zzza",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour sungguh luar biasa! Tempat-tempat wisata yang dikunjungi dan pelayanan yang diberikan sungguh luar biasa. Saya sangat menikmatinya!",
+      "name": "Dewi Susanti",
+      "job": "Mahasiswa"
+    },
+    {
+      "id": "acas",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour sangatlah seru! Pengalaman liburan yang menyenangkan dan membuat saya ingin mengikuti tur mereka lagi di masa yang akan datang!",
+      "name": "Budi Setiawan",
+      "job": "Wiraswasta"
+    },
+    {
+      "id": "adscw",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour benar-benar luar biasa! Pelayanan yang ramah dan tempat-tempat wisata yang menakjubkan. Saya benar-benar puas!",
+      "name": "Ratna Sari",
+      "job": "Pegawai Kantor"
+    },
+    {
+      "id": "aozzpp",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour sangat direkomendasikan! Pengalaman liburan yang menyenangkan dan tak terlupakan.",
+      "name": "Tono Raharjo",
+      "job": "Desainer Grafis"
+    },
+    {
+      "id": "zziqoqo",
+      "createdAt": "2024-04-14T12:00:00.000Z",
+      "avatar": "/assets/avatar.jpg",
+      "comment": "Refuch tour mantap banget! Liburan yang seru dan menyenangkan. Saya pasti akan merekomendasikannya kepada teman-teman saya!",
+      "name": "Sinta Kartika",
+      "job": "Pegawai Swasta"
+    }
+  ]
+}

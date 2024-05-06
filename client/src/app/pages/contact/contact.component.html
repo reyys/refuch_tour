@@ -1,0 +1,60 @@
+<section>
+  <div
+    class="container flex flex-col space-y-5 md:space-y-0 md:flex-row md:space-x-5 md:items-stretch lg:space-x-8 xl:space-x-12 py-5 md:py-8 lg:py-12"
+  >
+    <form
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full flex flex-col space-y-5"
+    >
+      <div class="flex flex-col space-y-3">
+        <h1 class="font-semibold">Contact Us</h1>
+        <label for="email">Email: </label>
+        <input
+          class="border p-3"
+          placeholder="Input your email"
+          id="email"
+          type="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="flex flex-col space-y-3">
+        <label for="name">Name: </label>
+        <input
+          class="border p-3"
+          placeholder="Input your name"
+          id="name"
+          type="text"
+          formControlName="name"
+        />
+      </div>
+      <div class="flex flex-col space-y-3">
+        <label for="message">Message: </label>
+        <textarea
+          class="border h-[150px] p-3"
+          placeholder="Input your message"
+          id="message"
+          type="text"
+          formControlName="message"
+        ></textarea>
+      </div>
+      <p-button
+        [disabled]="!contactForm.valid || loading"
+        type="submit"
+        styleClass="px-5 py-3 text-white rounded-md transition-all w-full flex items-center justify-center"
+      >
+        {{ loading ? "Loading..." : "Send Message" }}
+      </p-button>
+    </form>
+    <div class="w-full">
+      <iframe
+        class="w-full h-full"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666426976278!2d106.82238919678956!3d-6.1753924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e0!3m2!1sen!2sid!4v1712767194377!5m2!1sen!2sid"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>

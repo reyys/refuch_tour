@@ -1,0 +1,52 @@
+<div class="bg-white drop-shadow-lg cursor-pointer">
+  <div class="w-full h-[200px]">
+    <img
+      class="w-full object-cover h-full"
+      [src]="blog.imageUrl"
+      [alt]="blog.title"
+    />
+  </div>
+  <div class="p-5">
+    <h3 class="line-clamp-1 font-medium">{{ blog.title }}</h3>
+    <p class="line-clamp-3 mt-2">{{ blog.content }}</p>
+    @if (adminMode) {
+    <div class="flex items-center space-x-5 mt-5">
+      <p-button
+        (click)="openEditModal()"
+        styleClass="rounded-md w-full p-3 bg-primary text-white flex items-center justify-center space-x-3"
+      >
+        <p>Edit</p>
+        <ng-icon name="heroPencilSolid"></ng-icon>
+      </p-button>
+      <p-button
+        (click)="confirm1($event)"
+        styleClass="rounded-md w-full p-3 bg-red-500 text-white flex items-center justify-center space-x-3"
+      >
+        <p>Delete</p>
+        <ng-icon name="heroTrashSolid"></ng-icon>
+      </p-button>
+    </div>
+    } @else {
+    <a [href]="'/blogs/' + blog.slug">
+      <p-button
+        styleClass="w-full bg-primary text-white rounded-md p-3 mt-5 flex items-center justify-center space-x-3"
+      >
+        <p>Read More</p>
+        <ng-icon name="heroEyeSolid"></ng-icon>
+      </p-button>
+    </a>
+    }
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+
+<p-dialog
+  header="Edit Blog"
+  [(visible)]="showEditModal"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <app-edit-blog [blog]="blog"></app-edit-blog>
+</p-dialog>

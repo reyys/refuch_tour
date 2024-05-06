@@ -1,0 +1,57 @@
+<div class="min-h-[90vh] flex flex-col md:flex-row">
+  <div class="w-full relative">
+    <div
+      class="absolute left-0 top-0 right-0 bottom-0 bg-black/[0.5] flex items-center justify-center"
+    >
+      <h1 class="text-white max-w-[600px] text-center leading-tight">
+        "The world is a book, and those who do not travel read only one page"
+      </h1>
+    </div>
+    <img
+      class="w-full h-full object-cover"
+      src="/assets/login.jpg"
+      alt="Login"
+    />
+  </div>
+  <div class="w-full flex items-center justify-center bg-primary/5 p-5">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="loginSubmit()"
+      class="flex flex-col space-y-5 w-full max-w-[500px] mx-auto py-5 md:py-8 lg:py-12"
+    >
+      <div>
+        <h2 class="font-semibold">Login</h2>
+        <p class="text-grey mt-2">Enter your username and password</p>
+      </div>
+      <div class="flex flex-col space-y-3 w-full">
+        <label htmlFor="email">Email*</label>
+        <input
+          class="p-3 border"
+          formControlName="email"
+          placeholder="Input your email"
+        />
+      </div>
+      <div class="flex flex-col space-y-3 w-full">
+        <label htmlFor="password">Password*</label>
+        <p class="text-grey">Must be at least 6 charaters</p>
+        <input
+          class="p-3 border"
+          formControlName="password"
+          type="password"
+          placeholder="Input your password"
+        />
+      </div>
+      <p-button
+        [disabled]="!loginForm.valid"
+        type="submit"
+        styleClass="px-5 py-3 text-white rounded-md transition-all w-full flex items-center justify-center"
+      >
+        {{ loading ? "Loading..." : "Login" }}
+      </p-button>
+      <p class="text-center">
+        Didn't have an account ?
+        <a href="/register" class="text-primary hover:underline">Register</a>
+      </p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<form
+  [formGroup]="tourForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col space-y-5 mt-5"
+>
+  <h2 class="font-semibold">Create New Tour</h2>
+
+  <div class="flex flex-col space-y-5">
+    <label for="name">Name:</label>
+    <p class="text-grey">Must be at least 10 characters</p>
+    <input type="text" pInputText id="name" formControlName="name" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="description">Description:</label>
+    <p class="text-grey">Must be at least 100 characters</p>
+    <textarea
+      rows="10"
+      pInputTextarea
+      id="description"
+      formControlName="description"
+    ></textarea>
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="price">Price:</label>
+    <input type="number" pInputText id="price" formControlName="price" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="location">Location:</label>
+    <input type="text" pInputText id="location" formControlName="location" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="duration">Duration (days):</label>
+    <input type="number" pInputText id="duration" formControlName="duration" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="image">Image:</label>
+    <input type="file" (change)="onFileChange($event)" id="image" />
+  </div>
+
+  <button
+    class="w-full p-3 text-white"
+    [ngClass]="{
+      'bg-primary ripple': tourForm.valid,
+      'bg-gray-400': !tourForm.valid || loading,
+    }"
+    type="submit"
+    [disabled]="!tourForm.valid || loading"
+  >
+    {{ loading ? "Loading..." : "Create New Tour" }}
+  </button>
+</form>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+  @for (tour of tours; track $index) {
+  <app-tour-card [tour]="tour" [adminMode]="true"> </app-tour-card>
+  }
+</div>

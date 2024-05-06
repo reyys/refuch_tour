@@ -1,0 +1,76 @@
+<section class="container flex flex-col items-center py-5 md:py-8 lg:py-12">
+  <div class="max-w-[1100px] mx-auto text-center">
+    <h1 class="font-semibold">Our Tours</h1>
+    <p class="mt-5">
+      Unforgettable journey with Refuch Tours and discover the world in a whole
+      new light. Our carefully curated travel experiences are designed to
+      immerse you in the heart and soul of each destination, leaving you with
+      memories to last a lifetime
+    </p>
+  </div>
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="onSubmit()"
+    class="flex items-center space-x-5 w-full mt-5 md:mt-8"
+  >
+    <div class="w-full">
+      <span class="p-input-icon-right w-full">
+        <i class="pi pi-search"></i>
+        <input
+          formControlName="query"
+          placeholder="Search tour title..."
+          class="w-full"
+          type="text"
+          pInputText
+        />
+      </span>
+    </div>
+    <p-button
+      [ngClass]="{
+        'bg-primary ripple': searchForm.valid,
+        'bg-gray-400': !searchForm.valid
+      }"
+      type="submit"
+      [disabled]="!searchForm.valid"
+      class="whitespace-nowrap rounded-md"
+      >Search Tours</p-button
+    >
+  </form>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5">
+    @for (filterOption of filterOptions; track $index) {
+    <select
+      #event
+      (change)="onSelectChange(filterOption.label, event.value)"
+      class="border rounded-md p-3 outline-none"
+    >
+      <option>{{ filterOption.label }}</option>
+      @for (x of filterOption.options; track $index) {
+      <option [value]="x.value">{{ x.label }}</option>
+      }
+    </select>
+    }
+  </div>
+  @if (tours.length > 0 || loading) {
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5 md:mt-8 w-full"
+  >
+    @if (tours.length > 0) { @for (tour of tours; track $index) {
+    <app-tour-card [tour]="tour" />
+    } } @else if(loading) {
+    <p-skeleton width="100%" height="25rem" styleClass="mb-2"></p-skeleton>
+    <p-skeleton width="100%" height="25rem" styleClass="mb-2"></p-skeleton>
+    <p-skeleton width="100%" height="25rem" styleClass="mb-2"></p-skeleton>
+    <p-skeleton width="100%" height="25rem" styleClass="mb-2"></p-skeleton>
+    }
+  </div>
+  } @else {
+  <div class="flex flex-col w-full items-center justify-center">
+    <img
+      class="h-[500px] object-contain"
+      src="/assets/404.jpg"
+      alt="Empty Tours"
+    />
+    <h3 class="mt-5 text-gray-400">Tours Not Found</h3>
+  </div>
+  }
+</section>

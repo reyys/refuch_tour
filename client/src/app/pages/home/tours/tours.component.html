@@ -1,0 +1,31 @@
+<section class="bg-gray-50">
+  <div class="container py-5 md:py-8 lg:py-12 flex flex-col">
+    <div
+      class="max-w-[1100px] mx-auto text-center flex flex-col space-y-3 items-center"
+    >
+      <p class="font-light">Our Tours</p>
+      <h1 class="font-semibold">Popular Tours</h1>
+      <p>
+        Discover new adventures with us. Dive into uncharted territories, savor
+        culinary delights, immerse in diverse cultures, marvel at nature's
+        wonders, and embark on eco-conscious adventures. Join us for
+        unforgettable experiences.
+      </p>
+    </div>
+    <div class="mt-5 mg:mt-8">
+      <p-carousel
+        [value]="tours"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions"
+      >
+        <ng-template let-tour pTemplate="item">
+          <div class="p-5">
+            <app-tour-card [tour]="tour" />
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+</section>

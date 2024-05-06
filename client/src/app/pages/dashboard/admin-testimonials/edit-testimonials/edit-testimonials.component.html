@@ -1,0 +1,43 @@
+<form
+  [formGroup]="testimonialForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col space-y-5 mt-5 bg-white rounded-md w-full"
+>
+  <div class="flex flex-col space-y-5">
+    <label for="name">Name:</label>
+    <p class="text-grey">Must be at least 4 characters</p>
+    <input type="text" pInputText id="name" formControlName="name" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="name">Comment:</label>
+    <p class="text-grey">Must be at least 20 characters</p>
+    <input type="text" pInputText id="comment" formControlName="comment" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="name">Job:</label>
+    <p class="text-grey">Must be at least 4 characters</p>
+    <input type="text" pInputText id="job" formControlName="job" />
+  </div>
+
+  <div class="flex flex-col space-y-5">
+    <label for="image">Image:</label>
+    @if (imageUrl) {
+    <img [src]="imageUrl" class="w-full h-[200px] object-contain" />
+    }
+    <input type="file" (change)="onFileChange($event)" id="image" />
+  </div>
+
+  <button
+    class="w-full p-3 text-white"
+    [ngClass]="{
+      'bg-primary ripple': testimonialForm.valid,
+      'bg-gray-400': !testimonialForm.valid || loading
+    }"
+    type="submit"
+    [disabled]="!testimonialForm.valid || loading"
+  >
+    {{ loading ? "Loading..." : "Edit Testimonial" }}
+  </button>
+</form>

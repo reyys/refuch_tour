@@ -1,0 +1,103 @@
+<!-- Mobile  -->
+<div
+  [ngClass]="{
+    'translate-x-[0%]': showMenu,
+    'translate-x-[-100%]': !showMenu
+  }"
+  class="fixed left-0 top-0 bottom-0 p-5 bg-white drop-shadow-lg z-[99] transition-all flex flex-col space-y-5 lg:hidden"
+>
+  <div class="flex items-center space-x-5">
+    <a href="/">
+      <h2 class="font-semibold">Refuch Tour</h2>
+    </a>
+    <ng-icon
+      (click)="toggleMenu()"
+      class="text-[1.25rem]"
+      name="heroXMark"
+    ></ng-icon>
+  </div>
+  <a
+    *ngFor="let menu of menus; index as i"
+    class="text-black no-underline hover:text-primary transition-all"
+    href="{{ menu.link }}"
+  >
+    <p>{{ menu.label }}</p>
+  </a>
+
+  @if (user$) {
+  <div>
+    <a [routerLink]="['/dashboard']">
+      <p-button class="w-full">Dashboard</p-button>
+    </a>
+    <p-button (click)="signOut()" [outlined]="true" class="w-full"
+      >Sign Out</p-button
+    >
+  </div>
+  } @else {
+  <div class="flex flex-col space-y-5">
+    <a [routerLink]="['/login']">
+      <p-button
+        styleClass="w-full flex items-center justify-center"
+        [outlined]="true"
+      >
+        Login
+      </p-button>
+    </a>
+    <a [routerLink]="['/register']">
+      <p-button styleClass="w-full flex items-center justify-center">
+        Register
+      </p-button>
+    </a>
+  </div>
+  }
+</div>
+
+<!-- Desktop  -->
+<header class="drop-shadow-lg border-b bg-white">
+  <div class="flex items-center justify-between p-5">
+    <a href="/">
+      <h2 class="font-semibold">Refuch Tour</h2>
+    </a>
+    <div class="hidden lg:flex items-center space-x-5 lg:space-x-8">
+      @for (menu of menus; track $index) {
+      <a
+        [routerLink]="[menu.link]"
+        [ngClass]="{
+          'text-primary': currentRoute === menu.link
+        }"
+        (click)="toggleActiveRoute(menu.link)"
+        class="text-black no-underline hover:text-primary transition-all"
+      >
+        <p>{{ menu.label }}</p>
+      </a>
+      }
+    </div>
+    @if(userLoading) {
+    <div class="hidden lg:flex items-center space-x-5">
+      <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
+      <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
+    </div>
+    } @else { @if (user$) {
+    <div class="hidden lg:flex items-center space-x-5">
+      <a [routerLink]="['/dashboard']">
+        <p-button>Dashboard</p-button>
+      </a>
+      <p-button (click)="signOut()" [outlined]="true" class="w-full"
+        >Sign Out
+      </p-button>
+    </div>
+    } @else {
+    <div class="hidden lg:flex justify-end items-center space-x-5">
+      <a [routerLink]="['/login']">
+        <p-button [outlined]="true"> Login </p-button>
+      </a>
+      <a [routerLink]="['/register']">
+        <p-button> Register </p-button>
+      </a>
+    </div>
+    } }
+    <p-button (click)="toggleMenu()" class="lg:hidden">
+      <ng-icon size="26" name="heroBars3"></ng-icon>
+    </p-button>
+  </div>
+</header>

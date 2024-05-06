@@ -1,0 +1,85 @@
+<div class="min-h-[90vh] flex flex-col md:flex-row">
+  <div class="w-full relative">
+    <div
+      class="absolute left-0 top-0 right-0 bottom-0 bg-black/[0.5] flex items-center justify-center p-5"
+    >
+      <h1 class="text-white max-w-[600px] text-center leading-tight">
+        "Travel far enough, you meet yourself."
+      </h1>
+    </div>
+    <img
+      class="w-full h-full object-cover"
+      src="/assets/register.jpg"
+      alt="Login"
+    />
+  </div>
+  <div class="w-full flex items-center justify-center bg-primary/5 p-5">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="registerSubmit()"
+      class="flex flex-col space-y-5"
+    >
+      <div>
+        <h2 class="font-semibold">Register</h2>
+        <p class="text-grey mt-2">Create new account to purchase a new tour</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="flex flex-col space-y-3 w-full">
+          <label htmlFor="firstName">First Name*</label>
+          <input
+            class="p-3 border"
+            formControlName="firstName"
+            placeholder="Input your first name"
+          />
+        </div>
+        <div class="flex flex-col space-y-3 w-full">
+          <label htmlFor="lastName">Last name*</label>
+          <input
+            class="p-3 border"
+            formControlName="lastName"
+            placeholder="Input your last name"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col space-y-3 w-full">
+        <label htmlFor="email">Email*</label>
+        <input
+          class="p-3 border"
+          formControlName="email"
+          placeholder="Input your email"
+        />
+      </div>
+      <div class="flex flex-col space-y-3 w-full">
+        <label htmlFor="phone">Phone*</label>
+        <h5 class="text-grey">Minimum 8 digits number</h5>
+        <input
+          type="number"
+          class="p-3 border"
+          formControlName="phone"
+          placeholder="Input your phone number"
+        />
+      </div>
+      <div class="flex flex-col space-y-3 w-full">
+        <label htmlFor="password">Password*</label>
+        <h5 class="text-grey">Minimum 6 characters</h5>
+        <input
+          class="p-3 border"
+          formControlName="password"
+          type="password"
+          placeholder="Input your password"
+        />
+      </div>
+      <p-button
+        [disabled]="!registerForm.valid"
+        type="submit"
+        styleClass="px-5 py-3 text-white rounded-md transition-all w-full flex items-center justify-center"
+      >
+        {{ loading ? "Loading..." : "Create Account" }}
+      </p-button>
+      <p class="text-center">
+        Already have an account ?
+        <a href="/login" class="text-primary hover:underline">Login</a>
+      </p>
+    </form>
+  </div>
+</div>
