@@ -2,11 +2,11 @@ Project Refuch Tour
 
 Anggota : 
 
-Reynaldo / 535220201 ( Reyys )
+Reynaldo ( Reyys )
 
-Fu Andry Putra / 535220152 ( Velosofy )
+Fu Andry Putra ( Velosofy )
 
-Charles / 535220232 ( Keokuri )
+Charles ( Keokuri )
 
 
 Terdiri dari 3 branches :
