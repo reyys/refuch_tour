@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { MailService } from '../../services/mail/mail.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ButtonModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })
@@ -34,21 +34,25 @@ export class ContactComponent {
   onSubmit() {
     this.loading = true;
     const { email, name, message } = this.contactForm.value;
-    try {
-      this.mailService.sendContactMessage(email!, name!, message!);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Your message has been sent successfully to our company email',
-      });
-      this.loading = false;
-    } catch (error) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Failed to send your message. Please try again later',
-      });
-      this.loading = false;
-    }
+    this.mailService.sendContactMessage(email!, name!, message!).subscribe(
+      (res) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail:
+            'Your message has been sent successfully to our company email',
+        });
+        this.loading = false;
+        this.contactForm.reset();
+      },
+      (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to send your message. Please try again later',
+        });
+        this.loading = false;
+      }
+    );
   }
 }

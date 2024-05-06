@@ -41,17 +41,13 @@
           placeholder="Input your password"
         />
       </div>
-      <button
-        [ngClass]="{
-          'bg-primary ripple': loginForm.valid,
-          'bg-gray-400': !loginForm.valid
-        }"
+      <p-button
         [disabled]="!loginForm.valid"
         type="submit"
-        class="px-5 py-3 text-white rounded-md transition-all bg-primary w-full"
+        styleClass="px-5 py-3 text-white rounded-md transition-all w-full flex items-center justify-center"
       >
         {{ loading ? "Loading..." : "Login" }}
-      </button>
+      </p-button>
       <p class="text-center">
         Didn't have an account ?
         <a href="/register" class="text-primary hover:underline">Register</a>

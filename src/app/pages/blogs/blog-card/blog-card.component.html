@@ -11,29 +11,29 @@
     <p class="line-clamp-3 mt-2">{{ blog.content }}</p>
     @if (adminMode) {
     <div class="flex items-center space-x-5 mt-5">
-      <button
+      <p-button
         (click)="openEditModal()"
-        class="rounded-md w-full p-3 bg-primary text-white flex items-center justify-center space-x-3 ripple"
+        styleClass="rounded-md w-full p-3 bg-primary text-white flex items-center justify-center space-x-3"
       >
         <p>Edit</p>
         <ng-icon name="heroPencilSolid"></ng-icon>
-      </button>
-      <button
+      </p-button>
+      <p-button
         (click)="confirm1($event)"
-        class="rounded-md w-full p-3 bg-red-500 text-white flex items-center justify-center space-x-3 ripple"
+        styleClass="rounded-md w-full p-3 bg-red-500 text-white flex items-center justify-center space-x-3"
       >
         <p>Delete</p>
         <ng-icon name="heroTrashSolid"></ng-icon>
-      </button>
+      </p-button>
     </div>
     } @else {
     <a [href]="'/blogs/' + blog.slug">
-      <button
-        class="w-full bg-primary text-white rounded-md p-3 mt-5 flex items-center justify-center space-x-3 ripple"
+      <p-button
+        styleClass="w-full bg-primary text-white rounded-md p-3 mt-5 flex items-center justify-center space-x-3"
       >
         <p>Read More</p>
         <ng-icon name="heroEyeSolid"></ng-icon>
-      </button>
+      </p-button>
     </a>
     }
   </div>

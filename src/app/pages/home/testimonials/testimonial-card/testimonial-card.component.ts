@@ -6,13 +6,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TestimonialService } from '../../../../services/testimonial/testimonial.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { EditToursComponent } from '../../../dashboard/admin-tours/edit-tours/edit-tours.component';
 import { EditTestimonialsComponent } from '../../../dashboard/admin-testimonials/edit-testimonials/edit-testimonials.component';
 import {
   heroPencilSolid,
   heroStarSolid,
   heroTrashSolid,
 } from '@ng-icons/heroicons/solid';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-testimonial-card',
@@ -23,6 +23,7 @@ import {
     ConfirmDialogModule,
     DialogModule,
     EditTestimonialsComponent,
+    ButtonModule,
   ],
   viewProviders: [
     provideIcons({ heroStarSolid, heroPencilSolid, heroTrashSolid }),

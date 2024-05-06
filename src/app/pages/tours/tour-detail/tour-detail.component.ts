@@ -7,11 +7,12 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { TourService } from '../../../services/tour/tour.service';
 import { MessageService } from 'primeng/api';
 import { PaymentService } from '../../../services/payment/payment.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, ButtonModule],
   viewProviders: [provideIcons({ heroArrowLeft, heroChevronLeft })],
   templateUrl: './tour-detail.component.html',
   styleUrl: './tour-detail.component.css',

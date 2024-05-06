@@ -24,20 +24,29 @@
     <p>{{ menu.label }}</p>
   </a>
 
-  @if (user) {
-  <a [routerLink]="['/dashboard']">
-    <p-button class="w-full">Dashboard</p-button>
-  </a>
-  <p-button (click)="signOut()" [outlined]="true" class="w-full"
-    >Sign Out</p-button
-  >
+  @if (user$) {
+  <div>
+    <a [routerLink]="['/dashboard']">
+      <p-button class="w-full">Dashboard</p-button>
+    </a>
+    <p-button (click)="signOut()" [outlined]="true" class="w-full"
+      >Sign Out</p-button
+    >
+  </div>
   } @else {
   <div class="flex flex-col space-y-5">
     <a [routerLink]="['/login']">
-      <p-button [outlined]="true"> Login </p-button>
+      <p-button
+        styleClass="w-full flex items-center justify-center"
+        [outlined]="true"
+      >
+        Login
+      </p-button>
     </a>
     <a [routerLink]="['/register']">
-      <p-button> Register </p-button>
+      <p-button styleClass="w-full flex items-center justify-center">
+        Register
+      </p-button>
     </a>
   </div>
   }
@@ -64,11 +73,11 @@
       }
     </div>
     @if(userLoading) {
-    <div class="flex items-center space-x-5">
+    <div class="hidden lg:flex items-center space-x-5">
       <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
       <p-skeleton width="7.5rem" height="3rem"></p-skeleton>
     </div>
-    } @else { @if (user) {
+    } @else { @if (user$) {
     <div class="hidden lg:flex items-center space-x-5">
       <a [routerLink]="['/dashboard']">
         <p-button>Dashboard</p-button>
@@ -78,7 +87,7 @@
       </p-button>
     </div>
     } @else {
-    <div class="hidden md:w-[300px] md:flex justify-end items-center space-x-5">
+    <div class="hidden lg:flex justify-end items-center space-x-5">
       <a [routerLink]="['/login']">
         <p-button [outlined]="true"> Login </p-button>
       </a>

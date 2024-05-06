@@ -8,6 +8,9 @@ import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { Router, RouterLink } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
+import { Store } from '@ngrx/store';
+import { addUser, removeUser } from '../../states/actions/auth.action';
+import { authState } from '../../states/reducers/auth.reducer';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +30,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class HeaderComponent implements OnInit {
   currentRoute: string | undefined = undefined;
   userLoading: boolean = false;
-  user: User | undefined;
+  user$: User | null = null;
+
   menus: { label: string; link: string }[] = [
     { label: 'Home', link: '/' },
     { label: 'Tours', link: '/tours' },
@@ -38,15 +42,25 @@ export class HeaderComponent implements OnInit {
 
   showMenu = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private store: Store<{ auth: authState }>
+  ) {
+    store.select('auth').subscribe((x) => {
+      if (x) {
+        this.user$ = x.user;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.userLoading = true;
     this.authService.getCurrentUser()?.subscribe(
       (response) => {
-        this.authService.user = response.user;
-        this.user = response.user;
         this.userLoading = false;
+        this.store.dispatch(addUser(response.user));
+        this.user$ = response.user;
       },
       (err) => {
         this.userLoading = false;
@@ -57,7 +71,7 @@ export class HeaderComponent implements OnInit {
   signOut() {
     this.authService.clearToken();
     this.router.navigate(['']);
-    this.user = undefined;
+    this.store.dispatch(removeUser());
     this.showMenu = false;
   }
 

@@ -10,7 +10,6 @@ import login from '../../interfaces/login.interface';
   providedIn: 'root',
 })
 export class AuthService {
-  public user: Observable<User> | null | undefined;
   protected readonly storageService = inject(LocalStorageService);
   protected readonly storedToken = this.storageService.get<string>('token');
 
@@ -42,12 +41,7 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<any> | null {
-    const token = this.getToken();
-    if (token) {
-      return this.http.get<{ user: User }>(`api/user`);
-    } else {
-      return null;
-    }
+    return this.http.get<{ user: User }>(`api/user`);
   }
 
   getToken(): string | null {

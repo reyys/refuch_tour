@@ -11,11 +11,21 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NgIconComponent } from '@ng-icons/core';
+import { Store } from '@ngrx/store';
+import { addUser } from '../../states/actions/auth.action';
+import { authState } from '../../states/reducers/auth.reducer';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, DialogModule, CommonModule, NgIconComponent],
+  imports: [
+    ReactiveFormsModule,
+    DialogModule,
+    CommonModule,
+    NgIconComponent,
+    ButtonModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -32,7 +42,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private store: Store<{ auth: authState }>
   ) {}
 
   async loginSubmit() {
@@ -47,15 +58,14 @@ export class LoginComponent {
       .subscribe(
         (response) => {
           this.authService.saveToken({ token: response.token });
-          this.authService.user = response.user;
           this.messageService.add({
             severity: 'success',
             summary: 'Login Success',
-            detail: 'Login Successful. Redirecting to Dashboard',
+            detail: 'Redirecting to Dashboard',
           });
           this.loading = false;
           this.router.navigate(['/dashboard']);
-          window.location.reload();
+          this.store.dispatch(addUser({ user: response.user }));
         },
         (_) => {
           this.messageService.add({
@@ -65,7 +75,6 @@ export class LoginComponent {
           });
           this.loading = false;
           this.router.navigate(['/dashboard']);
-          this.loginForm.reset();
         }
       );
   }

@@ -11,11 +11,21 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NgIconComponent } from '@ng-icons/core';
+import { Store } from '@ngrx/store';
+import { User } from '../../models/user.model';
+import { addUser } from '../../states/actions/auth.action';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, DialogModule, CommonModule, NgIconComponent],
+  imports: [
+    ReactiveFormsModule,
+    DialogModule,
+    CommonModule,
+    NgIconComponent,
+    ButtonModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -41,7 +51,8 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private store: Store<{ user: User }>
   ) {}
 
   registerSubmit() {
@@ -60,7 +71,6 @@ export class RegisterComponent {
       .subscribe(
         (response) => {
           this.authService.saveToken({ token: response.token });
-          this.authService.user = response.user;
           this.messageService.add({
             severity: 'success',
             summary: 'Registration Success',
@@ -68,7 +78,7 @@ export class RegisterComponent {
           });
           this.loading = false;
           this.router.navigate(['/dashboard']);
-          window.location.reload();
+          this.store.dispatch(addUser({ user: response.user }));
         },
         (error) => {
           this.messageService.add({

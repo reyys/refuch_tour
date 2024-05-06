@@ -38,17 +38,13 @@
           formControlName="message"
         ></textarea>
       </div>
-      <button
-        [ngClass]="{
-          'bg-primary ripple': contactForm.valid,
-          'bg-gray-400': !contactForm.valid
-        }"
-        [disabled]="!contactForm.valid"
+      <p-button
+        [disabled]="!contactForm.valid || loading"
         type="submit"
-        class="px-5 py-3 text-white rounded-md transition-all"
+        styleClass="px-5 py-3 text-white rounded-md transition-all w-full flex items-center justify-center"
       >
         {{ loading ? "Loading..." : "Send Message" }}
-      </button>
+      </p-button>
     </form>
     <div class="w-full">
       <iframe

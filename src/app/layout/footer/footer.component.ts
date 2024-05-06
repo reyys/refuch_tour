@@ -93,23 +93,25 @@ export class FooterComponent {
   ) {}
 
   async onSubmit() {
-    try {
-      this.loading = true;
-      const { email } = this.newsletterForm.value;
-      await this.mailService.subscribeNewsletter(email!);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Subscribed successfully to our newsletter',
-      });
-      this.loading = false;
-    } catch (error) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Failed to subscribe the newsletter. Please try again later.',
-      });
-      this.loading = false;
-    }
+    this.loading = true;
+    const { email } = this.newsletterForm.value;
+    this.mailService.subscribeNewsletter(email!).subscribe(
+      (res) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Subscribed successfully to our newsletter',
+        });
+        this.loading = false;
+      },
+      (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to subscribe the newsletter. Please try again later.',
+        });
+        this.loading = false;
+      }
+    );
   }
 }

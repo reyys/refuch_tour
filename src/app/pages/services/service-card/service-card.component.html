@@ -10,40 +10,32 @@
     <h3 class="line-clamp-1 font-medium">{{ service.title }}</h3>
     <p class="line-clamp-3 mt-2">{{ service.content }}</p>
     @if (adminMode) {
-    <div class="flex items-center space-x-5 mt-5">
-      <button
+    <div class="flex items-center space-x-5 mt-5 w-full">
+      <p-button
         (click)="openEditModal()"
         [disabled]="loading"
-        [ngClass]="{
-          'bg-gray-400': loading,
-          'bg-primary': !loading
-        }"
-        class="rounded-md w-full p-3 text-white flex items-center justify-center space-x-3 ripple"
+        styleClass="rounded-md flex-1 p-3 text-white flex items-center justify-center space-x-3"
       >
         <p>Edit</p>
         <ng-icon name="heroPencilSolid"></ng-icon>
-      </button>
-      <button
-        [ngClass]="{
-          'bg-gray-400': loading,
-          'bg-red-500': !loading
-        }"
+      </p-button>
+      <p-button
         [disabled]="loading"
         (click)="confirm1($event)"
-        class="rounded-md w-full p-3 text-white flex items-center justify-center space-x-3 ripple"
+        styleClass="rounded-md flex-1 p-3 text-white flex items-center justify-center space-x-3 bg-red-500"
       >
         <p>Delete</p>
         <ng-icon name="heroTrashSolid"></ng-icon>
-      </button>
+      </p-button>
     </div>
     } @else {
     <a [href]="'/services/' + service.slug">
-      <button
-        class="w-full bg-primary text-white rounded-md p-3 mt-5 flex items-center justify-center space-x-3 ripple"
+      <p-button
+        styleClass="w-full bg-primary text-white rounded-md p-3 mt-5 flex items-center justify-center space-x-3 ripple"
       >
         <p>Check Detail</p>
         <ng-icon name="heroEyeSolid"></ng-icon>
-      </button>
+      </p-button>
     </a>
     }
   </div>

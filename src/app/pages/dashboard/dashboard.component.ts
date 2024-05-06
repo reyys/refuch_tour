@@ -12,6 +12,10 @@ import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { removeUser } from '../../states/actions/auth.action';
+import { authState } from '../../states/reducers/auth.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,13 +37,20 @@ import { ButtonModule } from 'primeng/button';
 export class DashboardComponent implements OnInit {
   items: MenuItem[] | undefined;
   activeItem: MenuItem | undefined;
-  user: User | null | undefined;
+  user: User | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private store: Store<{ auth: authState }>
+  ) {
+    store.select('auth').subscribe((x) => {
+      this.user = x.user;
+    });
+  }
 
   ngOnInit(): void {
     this.authService.getCurrentUser()?.subscribe((response) => {
-      this.authService.user = response.user;
       this.user = response.user;
       if (response.user.role === 'admin') {
         this.items = [
@@ -64,6 +75,6 @@ export class DashboardComponent implements OnInit {
   signOut() {
     this.authService.clearToken();
     this.router.navigate(['']);
-    this.user = undefined;
+    this.store.dispatch(removeUser());
   }
 }

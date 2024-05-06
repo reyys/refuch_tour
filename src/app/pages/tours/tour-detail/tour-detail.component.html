@@ -54,16 +54,16 @@
               <p>Total Price :</p>
               <p>Rp {{ tourData.price.toLocaleString() }}</p>
             </div>
-            <button
+            <p-button
               (click)="buyTicket()"
               [ngClass]="{
                 'bg-primary ripple': !loading,
                 'bg-gray-400': loading
               }"
-              class="w-full p-3 rounded-md bg-primary text-white ripple"
+              styleClass="w-full p-3 rounded-md bg-primary text-white ripple flex items-center justify-center"
             >
               {{ loading ? "Loading..." : "Buy Ticket" }}
-            </button>
+            </p-button>
           </div>
         </div>
       </div>

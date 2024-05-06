@@ -1,26 +1,33 @@
 <!-- transactions.component.html -->
-<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
   <!-- card.component.html -->
   @if (transactions.length > 0 && !loading) { @for (transaction of transactions;
   track $index) {
-  <div class="bg-white drop-shadow-sm rounded-lg shadow-lg p-6">
-    <div class="flex justify-between mb-2">
-      <span class="text-lg font-bold">{{ transaction.transaction_id }}</span>
+  <div
+    class="bg-white drop-shadow-sm rounded-lg shadow-lg p-6 flex flex-col space-y-5"
+  >
+    <div class="flex items-center justify-between">
+      <div class="text-sm text-gray-500 mb-2">
+        Purchase Date : {{ transaction.transaction_time }}
+      </div>
+      <div>
+        <span
+          [ngClass]="{
+          'bg-primary' : transaction.transaction_status !== 'expire',
+          'bg-red-500' : transaction.transaction_status == 'expire',
+        }"
+          class="text-sm p-1 px-2 rounded-md text-white capitalize"
+          >{{ transaction.transaction_status }}</span
+        >
+      </div>
     </div>
-    <div class="text-sm text-gray-500 mb-2">
-      {{ transaction.transaction_time }}
-    </div>
-    <div class="mb-2">
+    <div>
       <span class="text-sm font-semibold">Order ID : </span>
       <span class="text-sm">{{ transaction.order_id }}</span>
     </div>
-    <div class="mb-2">
-      <span class="text-sm font-semibold">Status : </span>
-      <span class="text-sm">{{ transaction.transaction_status }}</span>
-    </div>
-    <div class="mb-2">
+    <div>
       <span class="text-sm font-semibold">Payment Type : </span>
-      <span class="text-sm">{{ transaction.payment_type }}</span>
+      <span class="text-sm uppercase">{{ transaction.payment_type }}</span>
     </div>
     <div>
       <span class="text-sm font-semibold">Amount : </span>
@@ -32,8 +39,16 @@
   } } @else if(loading) { @for (item of [].constructor(6); track $index) {
   <p-skeleton height="300px" styleClass="mb-2 w-full"></p-skeleton>
   } } @else {
-  <div class="w-full h-[500px] flex items-center justify-center">
-    No Transactions Found
+  <div class="w-full col-span-2 flex flex-col items-center justify-center">
+    <img
+      class="h-[400px] object-contain"
+      src="/assets/404.jpg"
+      alt="Not Found"
+    />
+    <h4 class="mt-5">No Transactions Found</h4>
+    <a [routerLink]="['/tours']" class="mt-5">
+      <p-button>Buy Tours Ticket</p-button>
+    </a>
   </div>
   }
 </div>

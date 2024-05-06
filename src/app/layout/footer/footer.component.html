@@ -46,17 +46,13 @@
           class="px-1 pb-2 outline-none"
           placeholder="Input your email"
         />
-        <button
-          [disabled]="!newsletterForm.valid"
+        <p-button
+          [disabled]="!newsletterForm.valid || loading"
           type="submit"
-          [ngClass]="{
-            'bg-primary ripple': newsletterForm.valid,
-            'bg-gray-400': !newsletterForm.valid
-          }"
-          class="w-full bg-primary text-white p-2 rounded-md"
+          styleClass="w-full bg-primary text-white p-2 rounded-md h-[40px] flex items-center justify-center"
         >
           {{ loading ? "Loading..." : "Subscribe" }}
-        </button>
+        </p-button>
       </form>
     </div>
   </div>

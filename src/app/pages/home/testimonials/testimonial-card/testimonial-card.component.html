@@ -18,20 +18,20 @@
   <p class="mt-5">{{ testimonial.comment }}</p>
   @if (adminMode) {
   <div class="flex items-center space-x-5 mt-5">
-    <button
+    <p-button
       (click)="openEditModal()"
-      class="rounded-md w-full p-3 bg-primary text-white flex items-center justify-center space-x-3 ripple"
+      styleClass="rounded-md w-full p-3 bg-primary text-white flex items-center justify-center space-x-3 ripple"
     >
       <p>Edit</p>
       <ng-icon name="heroPencilSolid"></ng-icon>
-    </button>
-    <button
+    </p-button>
+    <p-button
       (click)="confirm1($event)"
-      class="rounded-md w-full p-3 bg-red-500 text-white flex items-center justify-center space-x-3 ripple"
+      styleClass="rounded-md w-full p-3 bg-red-500 text-white flex items-center justify-center space-x-3 ripple"
     >
       <p>Delete</p>
       <ng-icon name="heroTrashSolid"></ng-icon>
-    </button>
+    </p-button>
   </div>
   }
 </div>

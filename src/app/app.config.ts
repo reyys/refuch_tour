@@ -1,8 +1,14 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -12,9 +18,16 @@ import {
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { provideNgxLocalstorage } from 'ngx-localstorage';
 import { ApiInterceptor } from './api-interceptor';
+import { StoreModule, provideStore } from '@ngrx/store';
+import { userReducer } from './states/reducers/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(
+      StoreModule.forRoot({
+        auth: userReducer,
+      })
+    ),
     provideRouter(routes),
     provideClientHydration(),
     provideAnimations(),
@@ -26,5 +39,7 @@ export const appConfig: ApplicationConfig = {
     }),
     MessageService,
     ConfirmationService,
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
 };
